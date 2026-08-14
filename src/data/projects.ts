@@ -41,12 +41,12 @@ export const projects: Project[] = [
   },
   {
     name: 'CottonCure',
-    tagline: 'Offline cotton disease detection',
+    tagline: 'On-device ML disease detection',
     description:
-      'An Android app that detects cotton plant diseases with an on-device TFLite model — no API keys, works fully offline — backed by Firebase for auth and data.',
+      'An Android app that uses an on-device machine learning model to detect cotton plant diseases — no API keys, works fully offline — backed by Firebase for auth and data.',
     longDescription:
-      'An Android app with a dedicated on-device model folder — a TensorFlow Lite model classifies cotton plant diseases directly from a photo with no network call and no API key, so it keeps working in low-connectivity rural settings. Firebase covers user authentication and stores diagnosis history in the cloud when a connection is available, but detection itself never depends on it.',
-    tags: ['Android', 'Kotlin/Java', 'TensorFlow Lite', 'Firebase'],
+      'A machine-learning-first Android app: a TensorFlow Lite model, trained to classify cotton plant diseases, runs entirely on-device with no network call and no API key, so it keeps working in low-connectivity rural settings. Firebase covers user authentication and stores diagnosis history in the cloud when a connection is available, but the ML inference itself never depends on it.',
+    tags: ['Machine Learning', 'TensorFlow Lite', 'Android', 'Firebase'],
     repo: 'https://github.com/AvishkarKedar/CottonCure',
     status: 'in-progress',
     year: '2026',
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     year: '2026',
   },
   {
-    name: 'Svik Games',
+    name: 'Avik Games',
     tagline: '15-world browser platformer',
     description:
       'A free, install-free browser platformer with 15 hand-built worlds that ramp up in difficulty — wider pits, faster enemies, and spike traps from World 6 onward.',

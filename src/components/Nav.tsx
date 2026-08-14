@@ -29,7 +29,7 @@ export default function Nav() {
           href="https://github.com/AvishkarKedar"
           target="_blank"
           rel="noreferrer"
-          className="rounded-full bg-money px-4 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
+          className="rounded-full bg-white px-4 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
         >
           GitHub ↗
         </a>

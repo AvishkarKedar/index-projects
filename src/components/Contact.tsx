@@ -12,7 +12,7 @@ export default function Contact() {
   return (
     <section id="contact" className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-money">Index — 004</p>
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/40">Index — 004</p>
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -36,7 +36,7 @@ export default function Contact() {
               className="glass glow-border group block rounded-2xl p-6"
             >
               <p className="font-mono text-xs uppercase tracking-widest text-white/40">{l.label}</p>
-              <p className="mt-2 flex items-center justify-between text-lg text-white transition-colors group-hover:text-money">
+              <p className="mt-2 flex items-center justify-between text-lg text-white transition-colors group-hover:text-white/70">
                 {l.value}
                 <span className="transition-transform group-hover:translate-x-1">↗</span>
               </p>

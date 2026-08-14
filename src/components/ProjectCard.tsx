@@ -26,7 +26,7 @@ export default function ProjectCard({
         <StatusDot status={project.status} />
       </div>
       <h3 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{project.name}</h3>
-      <p className="mt-1 font-mono text-xs uppercase tracking-widest text-money">{project.tagline}</p>
+      <p className="mt-1 font-mono text-xs uppercase tracking-widest text-white/70">{project.tagline}</p>
       <p className="mt-5 text-sm leading-relaxed text-white/60">{project.description}</p>
       <div className="mt-6 flex flex-wrap gap-2">
         {project.tags.map((tag) => (
@@ -42,7 +42,7 @@ export default function ProjectCard({
             target="_blank"
             rel="noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="text-money underline decoration-money/40 underline-offset-4 hover:decoration-money"
+            className="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white"
           >
             Visit ↗
           </a>

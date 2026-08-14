@@ -7,10 +7,6 @@ export default {
       colors: {
         void: '#000000',
         line: 'rgba(255,255,255,0.08)',
-        money: {
-          DEFAULT: '#00e676',
-          dim: '#00c853',
-        },
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],

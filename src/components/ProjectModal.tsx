@@ -39,7 +39,7 @@ export default function ProjectModal({ project, onClose }: { project: Project | 
             </button>
             <StatusDot status={project.status} />
             <h3 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">{project.name}</h3>
-            <p className="mt-1 font-mono text-xs uppercase tracking-widest text-money">{project.tagline}</p>
+            <p className="mt-1 font-mono text-xs uppercase tracking-widest text-white/70">{project.tagline}</p>
             <p className="mt-6 text-base leading-relaxed text-white/70">
               {project.longDescription || project.description}
             </p>
@@ -56,7 +56,7 @@ export default function ProjectModal({ project, onClose }: { project: Project | 
                   href={project.live}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full bg-money px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
+                  className="rounded-full bg-white px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
                 >
                   Visit ↗
                 </a>
