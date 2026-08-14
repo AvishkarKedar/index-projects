@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 const links = [
   { label: 'Email', value: 'astro.avishkar@gmail.com', href: 'mailto:astro.avishkar@gmail.com' },
   { label: 'GitHub', value: 'github.com/AvishkarKedar', href: 'https://github.com/AvishkarKedar' },
-  { label: 'Site', value: 'avishkark.in', href: 'https://avishkark.in' },
+  { label: 'Site', value: 'index.avishkark.in', href: 'https://index.avishkark.in' },
 ]
 
 export default function Contact() {
