@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
+import ContactForm from './ContactForm'
 
 const links = [
   { label: 'Email', value: 'avishkarkedar@gmail.com', href: 'mailto:avishkarkedar@gmail.com' },
@@ -9,19 +11,29 @@ const links = [
 ]
 
 export default function Contact() {
+  const [formOpen, setFormOpen] = useState(false)
+
   return (
     <section id="contact" className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/40">Index — 004</p>
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mt-4 max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-6xl"
-        >
-          Let's build something worth hosting.
-        </motion.h2>
+        <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-6xl"
+          >
+            Let's build something worth hosting.
+          </motion.h2>
+          <button
+            onClick={() => setFormOpen(true)}
+            className="shrink-0 rounded-full bg-white px-7 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
+          >
+            Send a Message
+          </button>
+        </div>
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {links.map((l, i) => (
             <motion.a
@@ -44,6 +56,7 @@ export default function Contact() {
           ))}
         </div>
       </div>
+      <ContactForm open={formOpen} onClose={() => setFormOpen(false)} />
     </section>
   )
 }
