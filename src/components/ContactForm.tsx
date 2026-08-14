@@ -98,7 +98,7 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <h3 className="text-2xl font-semibold tracking-tight text-white">Contact Me</h3>
-                  <p className="mt-1 text-sm text-white/50">Goes straight to my inbox.</p>
+                  <p className="mt-1 text-sm text-white/50">Goes straight to my inbox — I usually reply within 24–48 hours.</p>
                 </div>
 
                 {/* Honeypot field: hidden from real users, bots often fill every field */}
@@ -165,6 +165,9 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
                   {status === 'sending' ? 'Sending…' : 'Send'}
                 </motion.button>
                 {status === 'error' && <p className="text-center text-xs text-red-400">{error}</p>}
+                <p className="text-center text-[11px] text-white/25">
+                  Your details are only used to reply to you — never shared or sold.
+                </p>
               </form>
             )}
           </motion.div>

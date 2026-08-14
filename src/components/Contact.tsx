@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import ContactForm from './ContactForm'
 import RevealText from './RevealText'
+import Magnetic from './Magnetic'
 
 const links = [
   { label: 'Email', value: 'avishkarkedar@gmail.com', href: 'mailto:avishkarkedar@gmail.com' },
@@ -21,16 +22,24 @@ export default function Contact() {
           <h2 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-6xl">
             <RevealText text="Let's build something worth hosting." inView />
           </h2>
-          <motion.button
-            onClick={() => setFormOpen(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            animate={{ boxShadow: ['0 0 0 0 rgba(255,255,255,0.35)', '0 0 0 16px rgba(255,255,255,0)'] }}
-            transition={{ boxShadow: { duration: 2, repeat: Infinity, ease: 'easeOut' } }}
-            className="shrink-0 rounded-full bg-white px-8 py-4 font-mono text-sm font-semibold uppercase tracking-widest text-black"
-          >
-            Contact Me ↗
-          </motion.button>
+          <div className="flex shrink-0 flex-col items-start gap-3 sm:items-end">
+            <Magnetic>
+              <motion.button
+                onClick={() => setFormOpen(true)}
+                data-cursor="Contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.96 }}
+                animate={{ boxShadow: ['0 0 0 0 rgba(255,255,255,0.35)', '0 0 0 20px rgba(255,255,255,0)'] }}
+                transition={{ boxShadow: { duration: 2, repeat: Infinity, ease: 'easeOut' } }}
+                className="rounded-full bg-white px-9 py-4 font-mono text-sm font-semibold uppercase tracking-widest text-black"
+              >
+                Contact Me ↗
+              </motion.button>
+            </Magnetic>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-white/30">
+              Usually replies within 24–48 hours
+            </p>
+          </div>
         </div>
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {links.map((l, i) => (
@@ -44,6 +53,7 @@ export default function Contact() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ y: -3 }}
+              data-cursor="Open"
               className="glass glow-border group block rounded-2xl p-6"
             >
               <p className="font-mono text-xs uppercase tracking-widest text-white/40">{l.label}</p>
