@@ -1,0 +1,40 @@
+import { motion } from 'framer-motion'
+import { Project } from '../data/projects'
+import StatusDot from './StatusDot'
+
+export default function ProjectCard({ project, index }: { project: Project; index: number }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.6, delay: (index % 2) * 0.1, ease: 'easeOut' }}
+      className="group relative border border-line p-8 transition-colors hover:border-white/40"
+    >
+      <div className="mb-6 flex items-start justify-between">
+        <span className="font-mono text-xs text-white/30">{String(index + 1).padStart(2, '0')}</span>
+        <StatusDot status={project.status} />
+      </div>
+      <h3 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{project.name}</h3>
+      <p className="mt-1 font-mono text-xs uppercase tracking-widest text-white/40">{project.tagline}</p>
+      <p className="mt-5 text-sm leading-relaxed text-white/60">{project.description}</p>
+      <div className="mt-6 flex flex-wrap gap-2">
+        {project.tags.map((tag) => (
+          <span key={tag} className="border border-line px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white/50">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <div className="mt-8 flex gap-6 font-mono text-xs uppercase tracking-widest">
+        {project.live && (
+          <a href={project.live} target="_blank" rel="noreferrer" className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
+            Visit ↗
+          </a>
+        )}
+        <a href={project.repo} target="_blank" rel="noreferrer" className="text-white/50 underline decoration-white/10 underline-offset-4 hover:text-white hover:decoration-white/30">
+          Source ↗
+        </a>
+      </div>
+    </motion.article>
+  )
+}
