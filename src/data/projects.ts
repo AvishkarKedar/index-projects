@@ -30,13 +30,12 @@ export const projects: Project[] = [
     name: 'Portfolio',
     tagline: 'Dark, cinematic landing page',
     description:
-      'A dark marketing homepage built with Next.js — oversized type, hairline rules, scale-comparison graphics, static-exported and deployed on Cloudflare Pages.',
+      'A dark marketing homepage built with Next.js — oversized type, hairline rules, scale-comparison graphics. Static-exported and ready to deploy, not currently live on a domain.',
     longDescription:
-      'A lean Next.js 14 (React 18, TypeScript) marketing homepage with almost no external dependencies beyond the framework itself — styled after reliability-focused AI brands like terafab.ai and scale.com, with oversized type, hairline dividers, and scale-comparison graphics on a near-black canvas. It builds to a fully static export with no server runtime, and deploys straight to Cloudflare Pages from the main branch on every push.',
+      'A lean Next.js 14 (React 18, TypeScript) marketing homepage with almost no external dependencies beyond the framework itself — styled after reliability-focused AI brands like terafab.ai and scale.com, with oversized type, hairline dividers, and scale-comparison graphics on a near-black canvas. It builds to a fully static export with no server runtime, ready to deploy to Cloudflare Pages, though it is not currently hosted on a live domain.',
     tags: ['Next.js 14', 'TypeScript', 'React 18', 'Cloudflare Pages'],
     repo: 'https://github.com/AvishkarKedar/portfolio',
-    live: 'https://avishkark.in',
-    status: 'live',
+    status: 'in-progress',
     year: '2026',
   },
   {
