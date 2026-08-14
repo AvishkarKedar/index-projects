@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useSpring } from 'framer-motion'
 
 const links = [
   { label: 'Work', href: '#projects' },
@@ -7,6 +7,9 @@ const links = [
 ]
 
 export default function Nav() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30, restDelta: 0.001 })
+
   return (
     <motion.header
       initial={{ y: -40, opacity: 0 }}
@@ -14,6 +17,7 @@ export default function Nav() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className="fixed top-0 left-0 right-0 z-50 border-b border-line bg-black/60 backdrop-blur-xl"
     >
+      <motion.div style={{ scaleX }} className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-white" />
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a href="#top" className="font-mono text-sm tracking-widest text-white">
           AVISHKAR<span className="text-white/40">.KEDAR</span>

@@ -79,7 +79,12 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
             </button>
 
             {status === 'sent' ? (
-              <div className="py-8 text-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="py-8 text-center"
+              >
                 <p className="text-2xl font-semibold text-white">Message sent.</p>
                 <p className="mt-2 text-sm text-white/60">Thanks for reaching out — I'll get back to you soon.</p>
                 <button
@@ -88,11 +93,11 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
                 >
                   Close
                 </button>
-              </div>
+              </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <h3 className="text-2xl font-semibold tracking-tight text-white">Send a message</h3>
+                  <h3 className="text-2xl font-semibold tracking-tight text-white">Contact Me</h3>
                   <p className="mt-1 text-sm text-white/50">Goes straight to my inbox.</p>
                 </div>
 
@@ -107,7 +112,7 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
                   className="absolute left-[-9999px] h-0 w-0 opacity-0"
                 />
 
-                <div>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
                   <label className="block font-mono text-[11px] uppercase tracking-widest text-white/40">Name</label>
                   <input
                     required
@@ -116,8 +121,8 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
                     className="mt-2 w-full rounded-lg border border-line bg-white/5 px-4 py-2.5 text-sm text-white outline-none transition-colors focus:border-white"
                     placeholder="Your name"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                   <label className="block font-mono text-[11px] uppercase tracking-widest text-white/40">Email</label>
                   <input
                     required
@@ -127,8 +132,8 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
                     className="mt-2 w-full rounded-lg border border-line bg-white/5 px-4 py-2.5 text-sm text-white outline-none transition-colors focus:border-white"
                     placeholder="you@example.com"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
                   <label className="block font-mono text-[11px] uppercase tracking-widest text-white/40">
                     Subject <span className="normal-case text-white/25">(optional)</span>
                   </label>
@@ -138,8 +143,8 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
                     className="mt-2 w-full rounded-lg border border-line bg-white/5 px-4 py-2.5 text-sm text-white outline-none transition-colors focus:border-white"
                     placeholder="What's this about?"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                   <label className="block font-mono text-[11px] uppercase tracking-widest text-white/40">Message</label>
                   <textarea
                     required
@@ -149,14 +154,16 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
                     className="mt-2 w-full resize-none rounded-lg border border-line bg-white/5 px-4 py-2.5 text-sm text-white outline-none transition-colors focus:border-white"
                     placeholder="What's on your mind?"
                   />
-                </div>
-                <button
+                </motion.div>
+                <motion.button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="w-full rounded-full bg-white px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105 disabled:opacity-50"
+                  whileHover={{ scale: status === 'sending' ? 1 : 1.03 }}
+                  whileTap={{ scale: status === 'sending' ? 1 : 0.97 }}
+                  className="w-full rounded-full bg-white px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-black disabled:opacity-50"
                 >
                   {status === 'sending' ? 'Sending…' : 'Send'}
-                </button>
+                </motion.button>
                 {status === 'error' && <p className="text-center text-xs text-red-400">{error}</p>}
               </form>
             )}

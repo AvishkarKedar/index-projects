@@ -27,12 +27,14 @@ export default function Contact() {
           >
             Let's build something worth hosting.
           </motion.h2>
-          <button
+          <motion.button
             onClick={() => setFormOpen(true)}
-            className="shrink-0 rounded-full bg-white px-7 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            className="shrink-0 rounded-full bg-white px-7 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-black"
           >
-            Send a Message
-          </button>
+            Contact Me
+          </motion.button>
         </div>
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {links.map((l, i) => (
@@ -45,6 +47,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ y: -3 }}
               className="glass glow-border group block rounded-2xl p-6"
             >
               <p className="font-mono text-xs uppercase tracking-widest text-white/40">{l.label}</p>
