@@ -22,18 +22,18 @@ export default function Hero() {
           Pune, India — open to new projects
         </motion.p>
 
-        <h1 className="text-[13vw] font-semibold leading-[0.9] tracking-tightest text-white sm:text-[8vw] lg:text-[6.5vw]">
-          <RevealText text="Avishkar" />
+        <h1 className="shine-sweep overflow-hidden text-[clamp(2.75rem,13vw,8.5rem)] font-semibold leading-[0.9] tracking-tightest text-white">
+          <RevealText text="Avishkar" by="char" />
           <br />
           <span className="text-white/30">
-            <RevealText text="Kedar." delay={0.3} />
+            <RevealText text="Kedar." by="char" delay={0.45} />
           </span>
         </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.7 }}
+          transition={{ duration: 0.7, delay: 0.9 }}
           className="mt-8 max-w-xl text-lg text-white/60 sm:text-xl"
         >
           Software engineer building end‑to‑end — encrypted real‑time web apps,
@@ -47,7 +47,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
           className="mt-12 flex flex-wrap gap-4"
         >
           <Magnetic>
@@ -73,7 +73,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.1 }}
+          transition={{ duration: 0.7, delay: 1.3 }}
           className="mt-20 grid grid-cols-2 gap-8 border-t border-line pt-8 sm:grid-cols-4"
         >
           {[
@@ -93,7 +93,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 1 }}
+        transition={{ delay: 1.6, duration: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-widest text-white/30"
       >
         Scroll ↓

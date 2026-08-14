@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -49,6 +53,28 @@ body {
 }
 .glow-border:hover::before {
   opacity: 1;
+}
+
+.shine-sweep {
+  position: relative;
+}
+.shine-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: skewX(-20deg);
+  animation: shine-sweep 6s ease-in-out infinite;
+  animation-delay: 2s;
+  pointer-events: none;
+}
+@keyframes shine-sweep {
+  0% { left: -150%; }
+  35% { left: 150%; }
+  100% { left: 150%; }
 }
 
 ::selection {
@@ -109,6 +135,10 @@ textarea:focus-visible {
   .animate-blob,
   .animate-pulse-dot {
     animation: none !important;
+  }
+  .shine-sweep::after {
+    animation: none !important;
+    display: none;
   }
   html {
     scroll-behavior: auto !important;

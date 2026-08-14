@@ -8,7 +8,10 @@ export default function FloatingContactButton() {
 
   return (
     <>
-      <Magnetic strength={0.3} className="fixed bottom-6 right-6 z-40">
+      <Magnetic
+        strength={0.3}
+        className="fixed z-40 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-[calc(1.25rem+env(safe-area-inset-right))]"
+      >
         <motion.button
           onClick={() => setOpen(true)}
           initial={{ opacity: 0, y: 30 }}
