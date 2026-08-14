@@ -1,9 +1,8 @@
 import { FormEvent, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-// After deploying the Apps Script web app, paste its "Web app URL" here.
-// It looks like: https://script.google.com/macros/s/XXXXXXXXXXXXXXXXXXXXXXXX/exec
-const GOOGLE_SCRIPT_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'
+const GOOGLE_SCRIPT_URL =
+  'https://script.google.com/macros/s/AKfycbzNS7jOMwemv_ADv6DrFEWY_nlBFQ8SbsWYqL14zmsDjW3rD7giWdWfJK30kIIqSz5eXQ/exec'
 
 type Status = 'idle' | 'sending' | 'sent' | 'error'
 
