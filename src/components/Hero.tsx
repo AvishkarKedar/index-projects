@@ -18,7 +18,7 @@ export default function Hero() {
           className="mb-6 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-white/50"
         >
           <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-white" />
-          Index — 001 / Pune, India
+          Pune, India — open to new projects
         </motion.p>
 
         <h1 className="text-[13vw] font-semibold leading-[0.9] tracking-tightest text-white sm:text-[8vw] lg:text-[6.5vw]">

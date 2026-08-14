@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import ContactForm from './ContactForm'
+import RevealText from './RevealText'
 
 const links = [
   { label: 'Email', value: 'avishkarkedar@gmail.com', href: 'mailto:avishkarkedar@gmail.com' },
@@ -14,26 +15,21 @@ export default function Contact() {
   const [formOpen, setFormOpen] = useState(false)
 
   return (
-    <section id="contact" className="px-6 py-28">
+    <section id="contact" className="scroll-mt-24 px-6 py-28">
       <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/40">Index — 004</p>
-        <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-6xl"
-          >
-            Let's build something worth hosting.
-          </motion.h2>
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+          <h2 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-6xl">
+            <RevealText text="Let's build something worth hosting." inView />
+          </h2>
           <motion.button
             onClick={() => setFormOpen(true)}
             whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            className="shrink-0 rounded-full bg-white px-7 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-black"
+            whileTap={{ scale: 0.96 }}
+            animate={{ boxShadow: ['0 0 0 0 rgba(255,255,255,0.35)', '0 0 0 16px rgba(255,255,255,0)'] }}
+            transition={{ boxShadow: { duration: 2, repeat: Infinity, ease: 'easeOut' } }}
+            className="shrink-0 rounded-full bg-white px-8 py-4 font-mono text-sm font-semibold uppercase tracking-widest text-black"
           >
-            Contact Me
+            Contact Me ↗
           </motion.button>
         </div>
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

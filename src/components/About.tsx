@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion'
 import AnimatedNumber from './AnimatedNumber'
+import RevealText from './RevealText'
 
 export default function About() {
   return (
-    <section id="about" className="border-b border-line px-6 py-28">
+    <section id="about" className="scroll-mt-24 border-b border-line px-6 py-28">
       <div className="mx-auto max-w-6xl grid gap-12 md:grid-cols-[1fr_2fr]">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/40">Index — 003</p>
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">About</h2>
+          <h2 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+            <RevealText text="About" inView />
+          </h2>
         </div>
         <motion.div
           initial={{ opacity: 0, y: 24 }}

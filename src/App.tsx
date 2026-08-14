@@ -4,6 +4,7 @@ import Projects from './components/Projects'
 import About from './components/About'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import FloatingContactButton from './components/FloatingContactButton'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <About />
       <Contact />
       <Footer />
+      <FloatingContactButton />
     </div>
   )
 }

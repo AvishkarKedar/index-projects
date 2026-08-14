@@ -4,10 +4,12 @@ export default function RevealText({
   text,
   className = '',
   delay = 0,
+  inView = false,
 }: {
   text: string
   className?: string
   delay?: number
+  inView?: boolean
 }) {
   const words = text.split(' ')
   return (
@@ -17,7 +19,9 @@ export default function RevealText({
           <motion.span
             className="inline-block"
             initial={{ y: '110%' }}
-            animate={{ y: 0 }}
+            {...(inView
+              ? { whileInView: { y: 0 }, viewport: { once: true, margin: '-100px' } }
+              : { animate: { y: 0 } })}
             transition={{ duration: 0.7, delay: delay + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
           >
             {word}
