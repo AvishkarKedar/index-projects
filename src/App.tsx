@@ -12,12 +12,17 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen bg-black text-white">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <CustomCursor />
         <Nav />
-        <Hero />
-        <Projects />
-        <About />
-        <Contact />
+        <main id="main-content">
+          <Hero />
+          <Projects />
+          <About />
+          <Contact />
+        </main>
         <Footer />
         <FloatingContactButton />
       </div>
