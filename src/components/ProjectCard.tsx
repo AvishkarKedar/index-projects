@@ -5,29 +5,30 @@ import StatusDot from './StatusDot'
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, delay: (index % 2) * 0.1, ease: 'easeOut' }}
-      className="group relative border border-line p-8 transition-colors hover:border-white/40"
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.6, delay: (index % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className="glass glow-border group relative rounded-2xl p-8"
     >
       <div className="mb-6 flex items-start justify-between">
         <span className="font-mono text-xs text-white/30">{String(index + 1).padStart(2, '0')}</span>
         <StatusDot status={project.status} />
       </div>
       <h3 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{project.name}</h3>
-      <p className="mt-1 font-mono text-xs uppercase tracking-widest text-white/40">{project.tagline}</p>
+      <p className="mt-1 font-mono text-xs uppercase tracking-widest text-money">{project.tagline}</p>
       <p className="mt-5 text-sm leading-relaxed text-white/60">{project.description}</p>
       <div className="mt-6 flex flex-wrap gap-2">
         {project.tags.map((tag) => (
-          <span key={tag} className="border border-line px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white/50">
+          <span key={tag} className="rounded-full border border-line px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-white/50">
             {tag}
           </span>
         ))}
       </div>
       <div className="mt-8 flex gap-6 font-mono text-xs uppercase tracking-widest">
         {project.live && (
-          <a href={project.live} target="_blank" rel="noreferrer" className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
+          <a href={project.live} target="_blank" rel="noreferrer" className="text-money underline decoration-money/40 underline-offset-4 hover:decoration-money">
             Visit ↗
           </a>
         )}

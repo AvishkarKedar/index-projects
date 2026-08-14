@@ -10,7 +10,7 @@ export default function Contact() {
   return (
     <section id="contact" className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/40">Index — 004</p>
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-money">Index — 004</p>
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -20,12 +20,25 @@ export default function Contact() {
         >
           Let's build something worth hosting.
         </motion.h2>
-        <div className="mt-16 grid grid-cols-1 gap-8 border-t border-line pt-10 sm:grid-cols-3">
-          {links.map((l) => (
-            <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="group block">
+        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {links.map((l, i) => (
+            <motion.a
+              key={l.label}
+              href={l.href}
+              target="_blank"
+              rel="noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="glass glow-border group block rounded-2xl p-6"
+            >
               <p className="font-mono text-xs uppercase tracking-widest text-white/40">{l.label}</p>
-              <p className="mt-2 text-lg text-white transition-colors group-hover:text-white/60">{l.value} ↗</p>
-            </a>
+              <p className="mt-2 flex items-center justify-between text-lg text-white transition-colors group-hover:text-money">
+                {l.value}
+                <span className="transition-transform group-hover:translate-x-1">↗</span>
+              </p>
+            </motion.a>
           ))}
         </div>
       </div>

@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion'
+import AnimatedNumber from './AnimatedNumber'
 
 export default function About() {
   return (
     <section id="about" className="border-b border-line px-6 py-28">
       <div className="mx-auto max-w-6xl grid gap-12 md:grid-cols-[1fr_2fr]">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/40">Index — 003</p>
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-money">Index — 003</p>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">About</h2>
         </div>
         <motion.div
@@ -26,17 +27,28 @@ export default function About() {
             subdomains, deployed straight from GitHub.
           </p>
           <div className="grid grid-cols-2 gap-6 pt-6 sm:grid-cols-4">
-            {[
-              ['5', 'Projects shipped'],
-              ['1', 'Domain, many subdomains'],
-              ['0', 'Backends where avoidable'],
-              ['∞', 'Side projects queued'],
-            ].map(([n, l]) => (
-              <div key={l}>
-                <p className="font-mono text-3xl text-white">{n}</p>
-                <p className="mt-1 text-xs uppercase tracking-widest text-white/40">{l}</p>
-              </div>
-            ))}
+            <div>
+              <p className="font-mono text-3xl text-money">
+                <AnimatedNumber value={5} />
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-widest text-white/40">Projects shipped</p>
+            </div>
+            <div>
+              <p className="font-mono text-3xl text-money">
+                <AnimatedNumber value={1} />
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-widest text-white/40">Domain, many subdomains</p>
+            </div>
+            <div>
+              <p className="font-mono text-3xl text-money">
+                <AnimatedNumber value={0} />
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-widest text-white/40">Backends where avoidable</p>
+            </div>
+            <div>
+              <p className="font-mono text-3xl text-white">∞</p>
+              <p className="mt-1 text-xs uppercase tracking-widest text-white/40">Side projects queued</p>
+            </div>
           </div>
         </motion.div>
       </div>

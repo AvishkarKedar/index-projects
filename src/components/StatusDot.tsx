@@ -1,7 +1,7 @@
 import { ProjectStatus } from '../data/projects'
 
 const statusMap: Record<ProjectStatus, { color: string; label: string; pulse: boolean }> = {
-  live: { color: 'bg-white', label: 'Live', pulse: true },
+  live: { color: 'bg-money', label: 'Live', pulse: true },
   'in-progress': { color: 'bg-white/50', label: 'In Progress', pulse: false },
   maintenance: { color: 'bg-white/25', label: 'Maintenance', pulse: false },
 }
