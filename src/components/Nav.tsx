@@ -1,4 +1,5 @@
 import { motion, useScroll, useSpring } from 'framer-motion'
+import Magnetic from './Magnetic'
 
 const links = [
   { label: 'Work', href: '#projects' },
@@ -19,24 +20,29 @@ export default function Nav() {
     >
       <motion.div style={{ scaleX }} className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-white" />
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="font-mono text-sm tracking-widest text-white">
-          AVISHKAR<span className="text-white/40">.KEDAR</span>
-        </a>
+        <Magnetic strength={0.2}>
+          <a href="#top" data-cursor="Top" className="font-mono text-sm tracking-widest text-white">
+            AVISHKAR<span className="text-white/40">.KEDAR</span>
+          </a>
+        </Magnetic>
         <nav className="hidden gap-1 rounded-full border border-line p-1 font-mono text-xs uppercase tracking-widest text-white/60 sm:flex">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="rounded-full px-4 py-2 transition-colors hover:bg-white/10 hover:text-white">
+            <a key={l.href} href={l.href} data-cursor="Go" className="rounded-full px-4 py-2 transition-colors hover:bg-white/10 hover:text-white">
               {l.label}
             </a>
           ))}
         </nav>
-        <a
-          href="https://github.com/AvishkarKedar"
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-full bg-white px-4 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
-        >
-          GitHub ↗
-        </a>
+        <Magnetic strength={0.3}>
+          <a
+            href="https://github.com/AvishkarKedar"
+            target="_blank"
+            rel="noreferrer"
+            data-cursor="Visit"
+            className="rounded-full bg-white px-4 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
+          >
+            GitHub ↗
+          </a>
+        </Magnetic>
       </div>
     </motion.header>
   )

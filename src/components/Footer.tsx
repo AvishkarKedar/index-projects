@@ -16,13 +16,14 @@ export default function Footer() {
         </p>
         <nav className="flex gap-6 font-mono text-[11px] uppercase tracking-widest text-white/40">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="transition-colors hover:text-white">
+            <a key={l.href} href={l.href} data-cursor="Go" className="transition-colors hover:text-white">
               {l.label}
             </a>
           ))}
         </nav>
         <motion.a
           href="#top"
+          data-cursor="Top"
           whileHover={{ y: -2 }}
           className="font-mono text-[11px] uppercase tracking-widest text-white/40 transition-colors hover:text-white"
         >

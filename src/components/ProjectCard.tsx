@@ -1,7 +1,8 @@
 import { useRef } from 'react'
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion'
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import { Project } from '../data/projects'
 import StatusDot from './StatusDot'
+import ProjectVisual from './ProjectVisual'
 
 export default function ProjectCard({
   project,
@@ -12,15 +13,30 @@ export default function ProjectCard({
   index: number
   onOpen: (project: Project) => void
 }) {
+  const shouldReduceMotion = useReducedMotion()
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
+  const rotateX = useMotionValue(0)
+  const rotateY = useMotionValue(0)
+  const springRotateX = useSpring(rotateX, { stiffness: 200, damping: 20 })
+  const springRotateY = useSpring(rotateY, { stiffness: 200, damping: 20 })
   const ref = useRef<HTMLElement>(null)
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
     const rect = ref.current?.getBoundingClientRect()
     if (!rect) return
-    mouseX.set(e.clientX - rect.left)
-    mouseY.set(e.clientY - rect.top)
+    const px = e.clientX - rect.left
+    const py = e.clientY - rect.top
+    mouseX.set(px)
+    mouseY.set(py)
+    if (shouldReduceMotion) return
+    rotateY.set((px / rect.width - 0.5) * 10)
+    rotateX.set((py / rect.height - 0.5) * -10)
+  }
+
+  function handleMouseLeave() {
+    rotateX.set(0)
+    rotateY.set(0)
   }
 
   const spotlight = useMotionTemplate`radial-gradient(280px circle at ${mouseX}px ${mouseY}px, rgba(255,255,255,0.08), transparent 70%)`
@@ -35,7 +51,10 @@ export default function ProjectCard({
       whileHover={{ y: -6 }}
       transition={{ duration: 0.6, delay: (index % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
       onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       onClick={() => onOpen(project)}
+      data-cursor="Open"
+      style={{ rotateX: springRotateX, rotateY: springRotateY, transformPerspective: 1000 }}
       className="glass glow-border group relative cursor-pointer overflow-hidden rounded-2xl p-8"
     >
       <motion.div
@@ -44,10 +63,10 @@ export default function ProjectCard({
         style={{ background: spotlight }}
       />
       <div className="relative z-10">
-        <div className="mb-6 flex items-start justify-between">
-          <span className="font-mono text-xs text-white/30">{String(index + 1).padStart(2, '0')}</span>
+        <div className="mb-4 flex justify-end">
           <StatusDot status={project.status} />
         </div>
+        <ProjectVisual project={project} index={index} />
         <motion.h3 layoutId={`title-${project.name}`} className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
           {project.name}
         </motion.h3>

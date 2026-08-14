@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import RevealText from './RevealText'
+import Magnetic from './Magnetic'
 
 export default function Hero() {
   return (
@@ -37,7 +38,7 @@ export default function Hero() {
         >
           Software engineer building end‑to‑end — encrypted real‑time web apps,
           offline‑first mobile tools, and everything hosted at{' '}
-          <a href="https://avishkark.in" className="text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">
+          <a href="https://avishkark.in" data-cursor="Visit" className="text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">
             avishkark.in
           </a>
           .
@@ -49,12 +50,24 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.9 }}
           className="mt-12 flex flex-wrap gap-4"
         >
-          <a href="#projects" className="rounded-full bg-white px-7 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105">
-            View Projects
-          </a>
-          <a href="#contact" className="rounded-full border border-line px-7 py-3 font-mono text-xs uppercase tracking-widest text-white/70 transition-colors hover:border-white hover:text-white">
-            Get in Touch
-          </a>
+          <Magnetic>
+            <a
+              href="#projects"
+              data-cursor="View"
+              className="rounded-full bg-white px-7 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
+            >
+              View Projects
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href="#contact"
+              data-cursor="Go"
+              className="rounded-full border border-line px-7 py-3 font-mono text-xs uppercase tracking-widest text-white/70 transition-colors hover:border-white hover:text-white"
+            >
+              Get in Touch
+            </a>
+          </Magnetic>
         </motion.div>
 
         <motion.div

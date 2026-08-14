@@ -12,6 +12,7 @@ export type Project = {
   tagline: string
   description: string
   longDescription?: string
+  image?: string
   details: ProjectDetails
   tags: string[]
   repo: string
