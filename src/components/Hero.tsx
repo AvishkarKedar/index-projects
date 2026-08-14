@@ -4,7 +4,10 @@ import Magnetic from './Magnetic'
 
 export default function Hero() {
   return (
-    <section id="top" className="relative flex min-h-screen flex-col justify-center overflow-hidden border-b border-line px-6">
+    <section
+      id="top"
+      className="relative flex min-h-screen min-h-[100svh] min-h-[100dvh] flex-col justify-center overflow-hidden border-b border-line px-6"
+    >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 left-1/4 h-[32rem] w-[32rem] animate-blob rounded-full bg-white/15 blur-[120px]" />
         <div className="absolute right-1/4 top-1/3 h-[26rem] w-[26rem] animate-blob rounded-full bg-white/8 blur-[120px] [animation-delay:4s]" />
