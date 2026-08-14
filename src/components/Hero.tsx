@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import RevealText from './RevealText'
 import Magnetic from './Magnetic'
+import TypingText from './TypingText'
+import AnimatedNumber from './AnimatedNumber'
 
 export default function Hero() {
   return (
@@ -22,7 +24,7 @@ export default function Hero() {
           className="mb-6 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-white/50"
         >
           <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-white" />
-          Pune, India — open to new projects
+          <TypingText text="Pune, India — open to new projects" speed={26} startDelay={300} />
         </motion.p>
 
         <h1 className="shine-sweep overflow-hidden text-[clamp(2.75rem,13vw,8.5rem)] font-semibold leading-[0.9] tracking-tightest text-white">
@@ -37,11 +39,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.9 }}
-          className="mt-8 max-w-xl text-lg text-white/60 sm:text-xl"
+          className="mt-8 max-w-prose text-lg text-white/70 sm:text-xl"
         >
           Software engineer building end‑to‑end — encrypted real‑time web apps,
           offline‑first mobile tools, and everything hosted at{' '}
-          <a href="https://avishkark.in" data-cursor="Visit" className="text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">
+          <a href="https://avishkark.in" data-cursor="Visit" className="underline-grow font-medium text-white">
             avishkark.in
           </a>
           .
@@ -79,17 +81,28 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 1.3 }}
           className="mt-20 grid grid-cols-2 gap-8 border-t border-line pt-8 sm:grid-cols-4"
         >
-          {[
-            ['5', 'projects live'],
-            ['1', 'domain, many subdomains'],
-            ['0', 'backends where avoidable'],
-            ['24/7', 'uptime target'],
-          ].map(([n, l]) => (
-            <div key={l}>
-              <p className="font-mono text-2xl text-white sm:text-3xl">{n}</p>
-              <p className="mt-1 text-xs uppercase tracking-widest text-white/40">{l}</p>
-            </div>
-          ))}
+          <div>
+            <p className="font-mono text-2xl text-white sm:text-3xl">
+              <AnimatedNumber value={5} />
+            </p>
+            <p className="mt-1 text-xs uppercase tracking-widest text-white/40">projects live</p>
+          </div>
+          <div>
+            <p className="font-mono text-2xl text-white sm:text-3xl">
+              <AnimatedNumber value={1} />
+            </p>
+            <p className="mt-1 text-xs uppercase tracking-widest text-white/40">domain, many subdomains</p>
+          </div>
+          <div>
+            <p className="font-mono text-2xl text-white sm:text-3xl">
+              <AnimatedNumber value={0} />
+            </p>
+            <p className="mt-1 text-xs uppercase tracking-widest text-white/40">backends where avoidable</p>
+          </div>
+          <div>
+            <p className="font-mono text-2xl text-white sm:text-3xl">24/7</p>
+            <p className="mt-1 text-xs uppercase tracking-widest text-white/40">uptime target</p>
+          </div>
         </motion.div>
       </div>
 

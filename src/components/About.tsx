@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import AnimatedNumber from './AnimatedNumber'
 import RevealText from './RevealText'
+import TechMarquee from './TechMarquee'
 
 export default function About() {
   return (
@@ -16,7 +17,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="max-w-2xl space-y-6 text-lg leading-relaxed text-white/70"
+          className="max-w-prose space-y-6 text-lg leading-relaxed text-white/80"
         >
           <p>
             I'm Avishkar — an engineer based in Pune, building small, sharp
@@ -54,6 +55,7 @@ export default function About() {
           </div>
         </motion.div>
       </div>
+      <TechMarquee />
     </section>
   )
 }

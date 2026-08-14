@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import SuccessCheck from './SuccessCheck'
 
 const GOOGLE_SCRIPT_URL =
   'https://script.google.com/macros/s/AKfycbzNS7jOMwemv_ADv6DrFEWY_nlBFQ8SbsWYqL14zmsDjW3rD7giWdWfJK30kIIqSz5eXQ/exec'
@@ -85,7 +86,8 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="py-8 text-center"
               >
-                <p className="text-2xl font-semibold text-white">Message sent.</p>
+                <SuccessCheck />
+                <p className="mt-4 text-2xl font-semibold text-white">Message sent.</p>
                 <p className="mt-2 text-sm text-white/60">Thanks for reaching out — I'll get back to you soon.</p>
                 <button
                   onClick={handleClose}
@@ -164,7 +166,16 @@ export default function ContactForm({ open, onClose }: { open: boolean; onClose:
                 >
                   {status === 'sending' ? 'Sending…' : 'Send'}
                 </motion.button>
-                {status === 'error' && <p className="text-center text-xs text-red-400">{error}</p>}
+                {status === 'error' && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, x: [0, -6, 6, -4, 4, 0] }}
+                    transition={{ duration: 0.4 }}
+                    className="text-center text-xs text-red-400"
+                  >
+                    {error}
+                  </motion.p>
+                )}
                 <p className="text-center text-[11px] text-white/25">
                   Your details are only used to reply to you — never shared or sold.
                 </p>

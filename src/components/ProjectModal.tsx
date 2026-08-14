@@ -61,7 +61,7 @@ export default function ProjectModal({ project, onClose }: { project: Project | 
                 <p className="mt-1 font-mono text-xs uppercase tracking-widest text-white/70">{project.tagline}</p>
               </motion.div>
 
-              <motion.div variants={item} className="mt-7">
+              <motion.div variants={item} className="mt-7 max-w-prose">
                 <p className="font-mono text-[11px] uppercase tracking-widest text-white/40">Overview</p>
                 <p className="mt-2 text-base leading-relaxed text-white/70">{project.details.overview}</p>
               </motion.div>
@@ -78,7 +78,7 @@ export default function ProjectModal({ project, onClose }: { project: Project | 
                 </ul>
               </motion.div>
 
-              <motion.div variants={item} className="mt-7">
+              <motion.div variants={item} className="mt-7 max-w-prose">
                 <p className="font-mono text-[11px] uppercase tracking-widest text-white/40">Architecture</p>
                 <p className="mt-2 text-sm leading-relaxed text-white/70">{project.details.architecture}</p>
               </motion.div>

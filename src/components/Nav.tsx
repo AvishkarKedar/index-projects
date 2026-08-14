@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import Magnetic from './Magnetic'
+import ScrambleText from './ScrambleText'
 
 const links = [
   { label: 'Work', href: '#projects' },
@@ -39,7 +40,7 @@ export default function Nav() {
               AVISHKAR<span className="text-white/40">.KEDAR</span>
             </a>
           </Magnetic>
-          <nav className="hidden gap-1 rounded-full border border-line p-1 font-mono text-xs uppercase tracking-widest text-white/60 sm:flex">
+          <nav className="hidden gap-1 rounded-full border border-line p-1 font-mono text-xs uppercase tracking-widest text-white/70 sm:flex">
             {links.map((l) => (
               <a
                 key={l.href}
@@ -47,7 +48,7 @@ export default function Nav() {
                 data-cursor="Go"
                 className="rounded-full px-4 py-2 transition-colors hover:bg-white/10 hover:text-white"
               >
-                {l.label}
+                <ScrambleText text={l.label} />
               </a>
             ))}
           </nav>
