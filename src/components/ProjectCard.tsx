@@ -2,7 +2,15 @@ import { motion } from 'framer-motion'
 import { Project } from '../data/projects'
 import StatusDot from './StatusDot'
 
-export default function ProjectCard({ project, index }: { project: Project; index: number }) {
+export default function ProjectCard({
+  project,
+  index,
+  onOpen,
+}: {
+  project: Project
+  index: number
+  onOpen: (project: Project) => void
+}) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 50 }}
@@ -10,7 +18,8 @@ export default function ProjectCard({ project, index }: { project: Project; inde
       viewport={{ once: true, margin: '-80px' }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.6, delay: (index % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="glass glow-border group relative rounded-2xl p-8"
+      onClick={() => onOpen(project)}
+      className="glass glow-border group relative cursor-pointer rounded-2xl p-8"
     >
       <div className="mb-6 flex items-start justify-between">
         <span className="font-mono text-xs text-white/30">{String(index + 1).padStart(2, '0')}</span>
@@ -28,13 +37,26 @@ export default function ProjectCard({ project, index }: { project: Project; inde
       </div>
       <div className="mt-8 flex gap-6 font-mono text-xs uppercase tracking-widest">
         {project.live && (
-          <a href={project.live} target="_blank" rel="noreferrer" className="text-money underline decoration-money/40 underline-offset-4 hover:decoration-money">
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="text-money underline decoration-money/40 underline-offset-4 hover:decoration-money"
+          >
             Visit ↗
           </a>
         )}
-        <a href={project.repo} target="_blank" rel="noreferrer" className="text-white/50 underline decoration-white/10 underline-offset-4 hover:text-white hover:decoration-white/30">
+        <a
+          href={project.repo}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="text-white/50 underline decoration-white/10 underline-offset-4 hover:text-white hover:decoration-white/30"
+        >
           Source ↗
         </a>
+        <span className="ml-auto text-white/30 opacity-0 transition-opacity group-hover:opacity-100">Details →</span>
       </div>
     </motion.article>
   )

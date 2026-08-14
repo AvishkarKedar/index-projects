@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 
 const links = [
-  { label: 'Email', value: 'astro.avishkar@gmail.com', href: 'mailto:astro.avishkar@gmail.com' },
+  { label: 'Email', value: 'avishkarkedar@gmail.com', href: 'mailto:avishkarkedar@gmail.com' },
   { label: 'GitHub', value: 'github.com/AvishkarKedar', href: 'https://github.com/AvishkarKedar' },
-  { label: 'Site', value: 'index.avishkark.in', href: 'https://index.avishkark.in' },
+  { label: 'Site', value: 'avishkark.in', href: 'https://avishkark.in' },
+  { label: 'Instagram', value: '@avishkar_kedar', href: 'https://instagram.com/avishkar_kedar' },
+  { label: 'X', value: '@AvishkarKedar', href: 'https://x.com/AvishkarKedar' },
 ]
 
 export default function Contact() {
@@ -20,7 +22,7 @@ export default function Contact() {
         >
           Let's build something worth hosting.
         </motion.h2>
-        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {links.map((l, i) => (
             <motion.a
               key={l.label}
