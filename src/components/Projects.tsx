@@ -9,14 +9,14 @@ export default function Projects() {
   const [active, setActive] = useState<Project | null>(null)
 
   return (
-    <section id="projects" className="scroll-mt-24 border-b border-line px-6 py-28">
+    <section id="projects" className="scroll-mt-24 border-b border-line px-6 py-16 sm:py-20 md:py-24">
       <LayoutGroup>
         <div className="mx-auto max-w-6xl">
-          <div className="mb-16 flex items-end justify-between">
-            <h2 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+          <div className="mb-10 flex items-end justify-between">
+            <h2 className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">
               <RevealText text="Projects" inView />
             </h2>
-            <p className="hidden font-mono text-xs uppercase tracking-widest text-white/40 sm:block">
+            <p className="hidden font-mono text-xs uppercase tracking-widest text-fg/40 sm:block">
               {projects.length} total — click a card for details
             </p>
           </div>

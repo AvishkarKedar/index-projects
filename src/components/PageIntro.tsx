@@ -22,22 +22,22 @@ export default function PageIntro() {
       {show && !done && (
         <motion.div
           exit={{ opacity: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }}
-          className="fixed inset-0 z-[300] flex flex-col items-center justify-center gap-6 bg-black"
+          className="fixed inset-0 z-[300] flex flex-col items-center justify-center gap-6 bg-bg"
         >
           <motion.p
             initial={{ opacity: 0, letterSpacing: '0.5em' }}
             animate={{ opacity: 1, letterSpacing: '0.3em' }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-mono text-sm uppercase text-white"
+            className="font-mono text-sm uppercase text-fg"
           >
             Avishkar Kedar
           </motion.p>
-          <div className="h-[2px] w-40 overflow-hidden rounded-full bg-white/10">
+          <div className="h-[2px] w-40 overflow-hidden rounded-full bg-fg/10">
             <motion.div
               initial={{ x: '-100%' }}
               animate={{ x: '0%' }}
               transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-              className="h-full w-full bg-white"
+              className="h-full w-full bg-fg"
             />
           </div>
         </motion.div>

@@ -40,7 +40,7 @@ export default function ProjectCard({
     rotateY.set(0)
   }
 
-  const spotlight = useMotionTemplate`radial-gradient(280px circle at ${mouseX}px ${mouseY}px, rgba(255,255,255,0.08), transparent 70%)`
+  const spotlight = useMotionTemplate`radial-gradient(280px circle at ${mouseX}px ${mouseY}px, rgb(var(--fg-rgb) / 0.08), transparent 70%)`
 
   return (
     <motion.article
@@ -68,14 +68,14 @@ export default function ProjectCard({
           <StatusDot status={project.status} />
         </div>
         <ProjectVisual project={project} index={index} />
-        <motion.h3 layoutId={`title-${project.name}`} className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+        <motion.h3 layoutId={`title-${project.name}`} className="text-2xl font-semibold tracking-tight text-fg sm:text-3xl">
           <ScrambleText text={project.name} />
         </motion.h3>
-        <p className="mt-1 font-mono text-xs uppercase tracking-widest text-white/70">{project.tagline}</p>
-        <p className="mt-5 text-sm leading-relaxed text-white/70">{project.description}</p>
+        <p className="mt-1 font-mono text-xs uppercase tracking-widest text-fg/70">{project.tagline}</p>
+        <p className="mt-5 text-sm leading-relaxed text-fg/70">{project.description}</p>
         <div className="mt-6 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
-            <span key={tag} className="rounded-full border border-line px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-white/50">
+            <span key={tag} className="rounded-full border border-line px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-fg/50">
               {tag}
             </span>
           ))}
@@ -87,7 +87,7 @@ export default function ProjectCard({
               target="_blank"
               rel="noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="underline-grow inline-flex items-center py-2 text-white"
+              className="underline-grow inline-flex items-center py-2 text-fg"
             >
               Visit ↗
             </a>
@@ -97,11 +97,11 @@ export default function ProjectCard({
             target="_blank"
             rel="noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="underline-grow inline-flex items-center py-2 text-white/60 hover:text-white"
+            className="underline-grow inline-flex items-center py-2 text-fg/60 hover:text-fg"
           >
             Source ↗
           </a>
-          <span className="ml-auto text-white/30 opacity-0 transition-opacity group-hover:opacity-100">Details →</span>
+          <span className="ml-auto text-fg/30 opacity-0 transition-opacity group-hover:opacity-100">Details →</span>
         </div>
       </div>
     </motion.article>

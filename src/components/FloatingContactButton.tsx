@@ -21,11 +21,11 @@ export default function FloatingContactButton() {
           whileTap={{ scale: 0.95 }}
           aria-label="Contact me"
           data-cursor="Contact"
-          className="flex items-center gap-2.5 rounded-full bg-white px-6 py-3.5 font-mono text-xs font-semibold uppercase tracking-widest text-black shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
+          className="flex items-center gap-2.5 rounded-full bg-fg px-6 py-3.5 font-mono text-xs font-semibold uppercase tracking-widest text-bg shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
         >
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black/40" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-black" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-bg/40" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-bg" />
           </span>
           Contact Me
         </motion.button>

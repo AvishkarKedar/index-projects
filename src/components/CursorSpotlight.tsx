@@ -21,7 +21,7 @@ export default function CursorSpotlight() {
     return () => window.removeEventListener('mousemove', handleMove)
   }, [x, y])
 
-  const background = useMotionTemplate`radial-gradient(600px circle at ${springX}px ${springY}px, rgba(255,255,255,0.05), transparent 70%)`
+  const background = useMotionTemplate`radial-gradient(600px circle at ${springX}px ${springY}px, rgb(var(--fg-rgb) / 0.05), transparent 70%)`
 
   if (!enabled) return null
 
