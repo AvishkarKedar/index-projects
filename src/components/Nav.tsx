@@ -31,22 +31,22 @@ export default function Nav() {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="fixed top-0 left-0 right-0 z-50 border-b border-line bg-black/60 backdrop-blur-xl"
+        className="fixed top-0 left-0 right-0 z-50 border-b border-line bg-bg/60 backdrop-blur-xl"
       >
-        <motion.div style={{ scaleX }} className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-white" />
+        <motion.div style={{ scaleX }} className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-fg" />
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Magnetic strength={0.2}>
-            <a href="#top" data-cursor="Top" className="font-mono text-sm tracking-widest text-white">
-              AVISHKAR<span className="text-white/40">.KEDAR</span>
+            <a href="#top" data-cursor="Top" className="font-mono text-sm tracking-widest text-fg">
+              AVISHKAR<span className="text-fg/40">.KEDAR</span>
             </a>
           </Magnetic>
-          <nav className="hidden gap-1 rounded-full border border-line p-1 font-mono text-xs uppercase tracking-widest text-white/70 sm:flex">
+          <nav className="hidden gap-1 rounded-full border border-line p-1 font-mono text-xs uppercase tracking-widest text-fg/70 sm:flex">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 data-cursor="Go"
-                className="rounded-full px-4 py-2 transition-colors hover:bg-white/10 hover:text-white"
+                className="rounded-full px-4 py-2 transition-colors hover:bg-fg/10 hover:text-fg"
               >
                 <ScrambleText text={l.label} />
               </a>
@@ -59,7 +59,7 @@ export default function Nav() {
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="Visit"
-                className="rounded-full bg-white px-4 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-black transition-transform hover:scale-105"
+                className="rounded-full bg-fg px-4 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-bg transition-transform hover:scale-105"
               >
                 GitHub ↗
               </a>
@@ -70,9 +70,9 @@ export default function Nav() {
               aria-expanded={open}
               className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-line sm:hidden"
             >
-              <motion.span animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }} className="block h-[1.5px] w-5 bg-white" />
-              <motion.span animate={{ opacity: open ? 0 : 1 }} className="block h-[1.5px] w-5 bg-white" />
-              <motion.span animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }} className="block h-[1.5px] w-5 bg-white" />
+              <motion.span animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }} className="block h-[1.5px] w-5 bg-fg" />
+              <motion.span animate={{ opacity: open ? 0 : 1 }} className="block h-[1.5px] w-5 bg-fg" />
+              <motion.span animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }} className="block h-[1.5px] w-5 bg-fg" />
             </button>
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-black/95 backdrop-blur-xl sm:hidden"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-bg/95 backdrop-blur-xl sm:hidden"
           >
             {links.map((l, i) => (
               <motion.a
@@ -95,7 +95,7 @@ export default function Nav() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + i * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="font-mono text-2xl uppercase tracking-widest text-white"
+                className="font-mono text-2xl uppercase tracking-widest text-fg"
               >
                 {l.label}
               </motion.a>
@@ -108,7 +108,7 @@ export default function Nav() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + links.length * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-4 rounded-full bg-white px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-black"
+              className="mt-4 rounded-full bg-fg px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-bg"
             >
               GitHub ↗
             </motion.a>

@@ -16,10 +16,10 @@ export default function Contact() {
   const [formOpen, setFormOpen] = useState(false)
 
   return (
-    <section id="contact" className="scroll-mt-24 px-6 py-28">
+    <section id="contact" className="scroll-mt-24 px-6 py-16 sm:py-20 md:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-          <h2 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-6xl">
+          <h2 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-fg sm:text-6xl">
             <RevealText text="Let's build something worth hosting." inView />
           </h2>
           <div className="flex shrink-0 flex-col items-start gap-3 sm:items-end">
@@ -29,19 +29,17 @@ export default function Contact() {
                 data-cursor="Contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.96 }}
-                animate={{ boxShadow: ['0 0 0 0 rgba(255,255,255,0.35)', '0 0 0 20px rgba(255,255,255,0)'] }}
-                transition={{ boxShadow: { duration: 2, repeat: Infinity, ease: 'easeOut' } }}
-                className="rounded-full bg-white px-9 py-4 font-mono text-sm font-semibold uppercase tracking-widest text-black"
+                className="pulse-ring rounded-full bg-fg px-9 py-4 font-mono text-sm font-semibold uppercase tracking-widest text-bg"
               >
                 Contact Me ↗
               </motion.button>
             </Magnetic>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-white/30">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-fg/30">
               Usually replies within 24–48 hours
             </p>
           </div>
         </div>
-        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {links.map((l, i) => (
             <motion.a
               key={l.label}
@@ -56,8 +54,8 @@ export default function Contact() {
               data-cursor="Open"
               className="glass glow-border group block rounded-2xl p-6"
             >
-              <p className="font-mono text-xs uppercase tracking-widest text-white/40">{l.label}</p>
-              <p className="mt-2 flex items-center justify-between text-lg text-white transition-colors group-hover:text-white/70">
+              <p className="font-mono text-xs uppercase tracking-widest text-fg/40">{l.label}</p>
+              <p className="mt-2 flex items-center justify-between text-lg text-fg transition-colors group-hover:text-fg/70">
                 {l.value}
                 <span className="transition-transform group-hover:translate-x-1">↗</span>
               </p>
