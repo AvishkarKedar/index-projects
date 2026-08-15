@@ -8,8 +8,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingContactButton from './components/FloatingContactButton'
 import CustomCursor from './components/CustomCursor'
-import SectionTransition from './components/SectionTransition'
-import SoundToggle from './components/SoundToggle'
+import ThemeToggle from './components/ThemeToggle'
 
 const PageIntro = lazy(() => import('./components/PageIntro'))
 const CursorSpotlight = lazy(() => import('./components/CursorSpotlight'))
@@ -27,7 +26,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen bg-black text-white">
+      <div className="min-h-screen bg-bg text-fg">
         <Suspense fallback={null}>
           <PageIntro />
         </Suspense>
@@ -41,14 +40,13 @@ export default function App() {
         <Nav />
         <main id="main-content">
           <Hero />
-          <SectionTransition />
           <Projects />
           <About />
           <Contact />
         </main>
         <Footer />
         <FloatingContactButton />
-        <SoundToggle />
+        <ThemeToggle />
       </div>
     </MotionConfig>
   )

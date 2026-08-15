@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-rgb: 0 0 0;
+  --fg-rgb: 255 255 255;
+  --line-color: rgb(255 255 255 / 0.08);
+  --line-color-strong: rgb(255 255 255 / 0.2);
+}
+
+.light {
+  --bg-rgb: 255 255 255;
+  --fg-rgb: 12 12 12;
+  --line-color: rgb(0 0 0 / 0.1);
+  --line-color-strong: rgb(0 0 0 / 0.22);
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -17,16 +31,17 @@ body,
 }
 
 body {
-  background: #000000;
-  color: #ffffff;
+  background: rgb(var(--bg-rgb));
+  color: rgb(var(--fg-rgb));
   font-family: 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .bg-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    linear-gradient(rgb(var(--fg-rgb) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--fg-rgb) / 0.06) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
@@ -35,9 +50,10 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgb(var(--fg-rgb) / 0.03);
+  border: 1px solid var(--line-color);
   backdrop-filter: blur(16px);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .glow-border {
@@ -49,7 +65,7 @@ body {
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05));
+  background: linear-gradient(135deg, rgb(var(--fg-rgb) / 0.5), rgb(var(--fg-rgb) / 0.05));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -70,7 +86,7 @@ body {
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.55), transparent 35%);
+  background: conic-gradient(from 0deg, transparent, rgb(var(--fg-rgb) / 0.55), transparent 35%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -126,7 +142,7 @@ body {
   left: -150%;
   width: 55%;
   height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  background: linear-gradient(100deg, transparent, rgb(var(--fg-rgb) / 0.22), transparent);
   transform: skewX(-20deg);
   animation: shine-sweep 6s ease-in-out infinite;
   animation-delay: 2s;
@@ -144,33 +160,46 @@ body {
   }
 }
 
+.pulse-ring {
+  position: relative;
+  animation: pulse-ring 2s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(var(--fg-rgb) / 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgb(var(--fg-rgb) / 0);
+  }
+}
+
 ::selection {
-  background: #ffffff;
-  color: #000000;
+  background: rgb(var(--fg-rgb));
+  color: rgb(var(--bg-rgb));
 }
 
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: rgb(var(--bg-rgb));
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: rgb(var(--fg-rgb) / 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3d3d3d;
+  background: rgb(var(--fg-rgb) / 0.35);
 }
 
 @keyframes pulse-dot {
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 0 0 rgb(var(--fg-rgb) / 0.35);
   }
   50% {
     opacity: 0.6;
-    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
+    box-shadow: 0 0 0 6px rgb(var(--fg-rgb) / 0);
   }
 }
 .animate-pulse-dot {
@@ -181,7 +210,7 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid rgb(var(--fg-rgb));
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -191,8 +220,8 @@ textarea:focus-visible {
   top: -48px;
   left: 16px;
   z-index: 300;
-  background: #ffffff;
-  color: #000000;
+  background: rgb(var(--fg-rgb));
+  color: rgb(var(--bg-rgb));
   padding: 10px 18px;
   border-radius: 9999px;
   font-family: 'JetBrains Mono', monospace;
@@ -208,7 +237,8 @@ textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .animate-blob,
   .animate-pulse-dot,
-  .animate-marquee {
+  .animate-marquee,
+  .pulse-ring {
     animation: none !important;
   }
   .shine-sweep::after {

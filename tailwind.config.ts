@@ -5,8 +5,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        void: '#000000',
-        line: 'rgba(255,255,255,0.08)',
+        bg: 'rgb(var(--bg-rgb) / <alpha-value>)',
+        fg: 'rgb(var(--fg-rgb) / <alpha-value>)',
+        line: 'var(--line-color)',
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
