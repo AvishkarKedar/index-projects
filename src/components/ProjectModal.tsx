@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
 import { Project } from '../data/projects'
 import StatusDot from './StatusDot'
+import TransitionLink from './TransitionLink'
 
 const container: Variants = {
   hidden: {},
@@ -132,6 +133,14 @@ export default function ProjectModal({ project, onClose }: { project: Project | 
                 >
                   Source ↗
                 </a>
+                <TransitionLink
+                  to={`/projects/${project.slug}`}
+                  onClick={onClose}
+                  data-cursor="Open"
+                  className="rounded-full border border-line px-6 py-2.5 font-mono text-xs uppercase tracking-widest text-fg/70 transition-colors hover:border-fg hover:text-fg"
+                >
+                  Full Case Study →
+                </TransitionLink>
               </motion.div>
             </motion.div>
           </motion.div>

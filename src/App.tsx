@@ -1,13 +1,14 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { MotionConfig } from 'framer-motion'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav'
-import Hero from './components/Hero'
-import Projects from './components/Projects'
-import About from './components/About'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingContactButton from './components/FloatingContactButton'
 import CustomCursor from './components/CustomCursor'
+import KonamiEasterEgg from './components/KonamiEasterEgg'
+import Home from './pages/Home'
+import CaseStudy from './pages/CaseStudy'
+import NotFound from './pages/NotFound'
 
 const PageIntro = lazy(() => import('./components/PageIntro'))
 const CursorSpotlight = lazy(() => import('./components/CursorSpotlight'))
@@ -25,27 +26,31 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen bg-bg text-fg">
-        <Suspense fallback={null}>
-          <PageIntro />
-        </Suspense>
-        <a href="#main-content" className="skip-link">
-          Skip to content
-        </a>
-        <Suspense fallback={null}>
-          <CursorSpotlight />
-        </Suspense>
-        <CustomCursor />
-        <Nav />
-        <main id="main-content">
-          <Hero />
-          <Projects />
-          <About />
-          <Contact />
-        </main>
-        <Footer />
-        <FloatingContactButton />
-      </div>
+      <BrowserRouter>
+        <div className="min-h-screen bg-bg text-fg">
+          <Suspense fallback={null}>
+            <PageIntro />
+          </Suspense>
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
+          <Suspense fallback={null}>
+            <CursorSpotlight />
+          </Suspense>
+          <CustomCursor />
+          <KonamiEasterEgg />
+          <Nav />
+          <main id="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects/:slug" element={<CaseStudy />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+          <FloatingContactButton />
+        </div>
+      </BrowserRouter>
     </MotionConfig>
   )
 }
