@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 
 export default function ThemeToggle() {
   const [isLight, setIsLight] = useState(false)
@@ -18,26 +17,13 @@ export default function ThemeToggle() {
   }
 
   return (
-    <motion.button
+    <button
       onClick={toggle}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1.6, duration: 0.6 }}
-      aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
       aria-pressed={isLight}
       data-cursor="Theme"
-      className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] left-[calc(1.25rem+env(safe-area-inset-left))] z-40 flex h-11 w-11 items-center justify-center rounded-full border border-line bg-bg/60 text-fg/70 backdrop-blur-xl transition-colors hover:border-fg hover:text-fg"
+      className="inline-block py-2 font-mono text-[11px] uppercase tracking-widest text-fg/40 underline-offset-4 transition-colors hover:text-fg hover:underline"
     >
-      <motion.span
-        key={isLight ? 'sun' : 'moon'}
-        initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
-        animate={{ rotate: 0, opacity: 1, scale: 1 }}
-        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-        className="text-base"
-        aria-hidden="true"
-      >
-        {isLight ? '\u2600\uFE0F' : '\uD83C\uDF19'}
-      </motion.span>
-    </motion.button>
+      Theme: {isLight ? 'Light' : 'Dark'}
+    </button>
   )
 }

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import ThemeToggle from './ThemeToggle'
 
 const links = [
   { label: 'Work', href: '#projects' },
@@ -14,12 +15,13 @@ export default function Footer() {
           <span className="h-1.5 w-1.5 rounded-full bg-fg" />
           © {new Date().getFullYear()} Avishkar Kedar
         </p>
-        <nav className="flex gap-6 font-mono text-[11px] uppercase tracking-widest text-fg/40">
+        <nav className="flex flex-wrap items-center justify-center gap-6 font-mono text-[11px] uppercase tracking-widest text-fg/40">
           {links.map((l) => (
             <a key={l.href} href={l.href} data-cursor="Go" className="inline-block py-2 transition-colors hover:text-fg">
               {l.label}
             </a>
           ))}
+          <ThemeToggle />
         </nav>
         <motion.a
           href="#top"

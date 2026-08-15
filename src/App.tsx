@@ -8,7 +8,6 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingContactButton from './components/FloatingContactButton'
 import CustomCursor from './components/CustomCursor'
-import ThemeToggle from './components/ThemeToggle'
 
 const PageIntro = lazy(() => import('./components/PageIntro'))
 const CursorSpotlight = lazy(() => import('./components/CursorSpotlight'))
@@ -46,7 +45,6 @@ export default function App() {
         </main>
         <Footer />
         <FloatingContactButton />
-        <ThemeToggle />
       </div>
     </MotionConfig>
   )
