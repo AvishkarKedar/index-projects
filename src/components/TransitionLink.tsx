@@ -7,6 +7,10 @@ type TransitionLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
   children: ReactNode
 }
 
+type DocumentWithViewTransitions = Document & {
+  startViewTransition?: (callback: () => void) => void
+}
+
 export default function TransitionLink({ to, children, onClick, ...rest }: TransitionLinkProps) {
   const navigate = useNavigate()
 
@@ -18,11 +22,10 @@ export default function TransitionLink({ to, children, onClick, ...rest }: Trans
 
     const prefersReducedMotion =
       typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const supportsViewTransitions = typeof document !== 'undefined' && 'startViewTransition' in document
+    const doc = typeof document !== 'undefined' ? (document as DocumentWithViewTransitions) : undefined
 
-    if (supportsViewTransitions && !prefersReducedMotion) {
-      // @ts-expect-error startViewTransition is not yet part of the DOM lib types
-      document.startViewTransition(() => {
+    if (doc?.startViewTransition && !prefersReducedMotion) {
+      doc.startViewTransition(() => {
         flushSync(() => navigate(to))
       })
     } else {
