@@ -41,7 +41,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.9 }}
           className="mt-6 max-w-prose text-lg text-fg/70 sm:text-xl"
         >
-          Software engineer building end‑to‑end — encrypted real‑time web apps,
+          Computer science student building end‑to‑end — encrypted real‑time web apps,
           offline‑first mobile tools, and everything hosted at{' '}
           <a href="https://avishkark.in" data-cursor="Visit" className="underline-grow font-medium text-fg">
             avishkark.in

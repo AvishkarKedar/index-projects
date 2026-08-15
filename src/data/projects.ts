@@ -31,7 +31,7 @@ export const projects: Project[] = [
     tagline: 'Encrypted real-time scratchpad',
     description:
       'A live, end-to-end encrypted scratchpad for text and code. Open a room, share six characters, write together — nothing is stored once everyone leaves. AES-GCM in the browser, CRDT sync over a Cloudflare Worker relay.',
-    tags: ['CRDT (Yjs)', 'CodeMirror 6', 'Cloudflare Workers', 'E2E Encryption', 'Vite'],
+    tags: ['CRDT (Yjs)', 'CodeMirror 6', 'Cloudflare Workers', 'Vite'],
     repo: 'https://github.com/AvishkarKedar/textshare',
     live: 'https://code.avishkark.in',
     status: 'live',
@@ -52,7 +52,7 @@ export const projects: Project[] = [
       story:
         'anonshare started from a simple annoyance: sharing a snippet of code or a quick note with someone nearby should not require an account, a link that outlives the conversation, or trusting a third party with the contents. The result is a scratchpad that exists only as long as a room is open — a six-character code is the entire access model.',
       challenges:
-        'The hardest part was not the CRDT sync itself — Yjs handles that well — it was making sure the server relay never sees plaintext. Every payload is encrypted with AES-GCM in the browser before it ever reaches the Cloudflare Worker, so the relay only ever moves ciphertext between peers. Getting IndexedDB persistence, encryption, and CRDT merge logic to cooperate without racing each other took several rewrites of the sync layer.',
+        'The hardest part was not the CRDT sync itself — Yjs handles that well — it was making sure the server relay never sees plaintext. Every payload is encrypted in the browser before it ever reaches the Cloudflare Worker, so the relay only ever moves scrambled data between peers. Getting local saving, encryption, and real-time merge logic to cooperate without racing each other took several rewrites of the sync layer.',
     },
   },
   {
@@ -114,8 +114,8 @@ export const projects: Project[] = [
     name: 'QRData',
     tagline: 'File transfer over animated QR',
     description:
-      'Offline file transfer over camera using animated QR frames — no internet, Bluetooth, cable, or local network. Chunked, checksummed, optionally AES-256 encrypted. Android and Windows from one Flutter codebase.',
-    tags: ['Flutter', 'Dart', 'Android', 'Windows', 'AES-256-GCM'],
+      'Offline file transfer over camera using animated QR frames — no internet, Bluetooth, cable, or local network. Chunked, checksummed, optionally encrypted. Android and Windows from one Flutter codebase.',
+    tags: ['Flutter', 'Dart', 'Android', 'Windows'],
     repo: 'https://github.com/AvishkarKedar/qrdata',
     status: 'in-progress',
     year: '2026',
@@ -123,8 +123,8 @@ export const projects: Project[] = [
       overview:
         'A file-transfer protocol that needs nothing but a camera on each end — files are zipped, chunked, and streamed as a sequence of animated QR codes that a second device decodes live.',
       features: [
-        'Chunked, CRC32-checksummed, SHA-256-verified file transfer',
-        'Optional AES-256-GCM end-to-end encryption',
+        'Chunked, checksummed, verified file transfer',
+        'Optional end-to-end encryption',
         'Streamed as animated QR frames — no Wi-Fi, Bluetooth, cable, or internet',
         'Wakelock, haptic feedback, and desktop drag-and-drop',
       ],
@@ -134,7 +134,7 @@ export const projects: Project[] = [
       story:
         'QRData is built around a constraint most file-transfer tools do not take seriously: sometimes there is no Wi-Fi, no Bluetooth pairing, no cable, and no shared network — just two screens and two cameras. Turning a file into a stream of animated QR frames was the most reliable way to move data with nothing but that.',
       challenges:
-        'The real engineering problem was throughput and reliability over a channel that is fundamentally just ‘a camera reading a screen’ — every chunk needed CRC32 checksums and a SHA-256 verification pass at the end so a single missed frame does not silently corrupt the file. Getting one Flutter codebase to feel native on both Android touch input and Windows drag-and-drop took real platform-specific tuning.',
+        'The real engineering problem was throughput and reliability over a channel that is fundamentally just ‘a camera reading a screen’ — every chunk needed its own checksum and a final verification pass so a single missed frame does not silently corrupt the file. Getting one Flutter codebase to feel native on both Android touch input and Windows drag-and-drop took real platform-specific tuning.',
     },
   },
   {

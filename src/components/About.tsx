@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import AnimatedNumber from './AnimatedNumber'
 import RevealText from './RevealText'
-import TechMarquee from './TechMarquee'
 
 export default function About() {
   return (
@@ -20,8 +19,8 @@ export default function About() {
           className="max-w-prose space-y-6 text-lg leading-relaxed text-fg/80"
         >
           <p>
-            I'm Avishkar — an engineer based in Pune, building small, sharp
-            products end‑to‑end. My work spans real‑time encrypted web apps,
+            I'm Avishkar — a student based in Pune, building small, sharp
+            projects end‑to‑end. My work spans real‑time encrypted web apps,
             offline‑first mobile tools, and the infrastructure that hosts them.
           </p>
           <p>
@@ -55,7 +54,6 @@ export default function About() {
           </div>
         </motion.div>
       </div>
-      <TechMarquee />
     </section>
   )
 }

@@ -24,6 +24,12 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+}
+
 html,
 body,
 #root {
@@ -92,11 +98,11 @@ body {
   mask-composite: exclude;
   opacity: 0;
   transition: opacity 0.3s ease;
-  animation: rotate-border 3.5s linear infinite;
   pointer-events: none;
 }
 .rotating-border:hover::after {
   opacity: 1;
+  animation: rotate-border 3.5s linear infinite;
 }
 @keyframes rotate-border {
   to {
@@ -234,6 +240,60 @@ textarea:focus-visible {
   top: 16px;
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+::view-transition-old(root) {
+  animation-name: view-transition-fade-out;
+}
+::view-transition-new(root) {
+  animation-name: view-transition-fade-in;
+}
+@keyframes view-transition-fade-out {
+  to {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+}
+@keyframes view-transition-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(1.01);
+  }
+}
+
+@media print {
+  .fixed,
+  .bg-grid,
+  .animate-blob,
+  .skip-link {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+  .glass,
+  .glow-border,
+  .rotating-border {
+    background: none !important;
+    border-color: #ccc !important;
+    backdrop-filter: none !important;
+  }
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.75em;
+    color: #555;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-blob,
   .animate-pulse-dot,
@@ -254,5 +314,10 @@ textarea:focus-visible {
   }
   html {
     scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
