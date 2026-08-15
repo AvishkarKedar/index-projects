@@ -16,8 +16,14 @@ export default function Contact() {
   const [formOpen, setFormOpen] = useState(false)
 
   return (
-    <section id="contact" className="scroll-mt-24 px-6 py-16 sm:py-20 md:py-24">
-      <div className="mx-auto max-w-6xl">
+    <section id="contact" className="relative scroll-mt-24 overflow-hidden px-6 py-16 sm:py-20 md:py-24">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute -left-24 bottom-0 h-[24rem] w-[24rem] animate-blob rounded-full blur-[130px] [animation-delay:5s]"
+          style={{ backgroundColor: 'rgb(var(--accent-rgb) / var(--blob-o1))' }}
+        />
+      </div>
+      <div className="relative mx-auto max-w-6xl">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <h2 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-fg sm:text-6xl">
             <RevealText text="Let's build something worth hosting." inView />

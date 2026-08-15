@@ -7,6 +7,15 @@
   --fg-rgb: 255 255 255;
   --line-color: rgb(255 255 255 / 0.08);
   --line-color-strong: rgb(255 255 255 / 0.2);
+  --accent-rgb: 129 140 248;
+  --blob-o1: 0.16;
+  --blob-o2: 0.11;
+  --grid-o: 0.06;
+  --visual-container-o: 0.03;
+  --visual-pattern-o: 0.09;
+  --visual-blur-o: 0.22;
+  --visual-number-o: 0.09;
+  --spotlight-o: 0.06;
 }
 
 .light {
@@ -14,6 +23,15 @@
   --fg-rgb: 12 12 12;
   --line-color: rgb(0 0 0 / 0.1);
   --line-color-strong: rgb(0 0 0 / 0.22);
+  --accent-rgb: 67 56 202;
+  --blob-o1: 0.14;
+  --blob-o2: 0.1;
+  --grid-o: 0.09;
+  --visual-container-o: 0.035;
+  --visual-pattern-o: 0.12;
+  --visual-blur-o: 0.16;
+  --visual-number-o: 0.07;
+  --spotlight-o: 0.05;
 }
 
 * {
@@ -46,8 +64,8 @@ body {
 
 .bg-grid {
   background-image:
-    linear-gradient(rgb(var(--fg-rgb) / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--fg-rgb) / 0.06) 1px, transparent 1px);
+    linear-gradient(rgb(var(--fg-rgb) / var(--grid-o)) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--fg-rgb) / var(--grid-o)) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 

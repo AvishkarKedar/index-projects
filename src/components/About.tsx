@@ -4,8 +4,18 @@ import RevealText from './RevealText'
 
 export default function About() {
   return (
-    <section id="about" className="scroll-mt-24 border-b border-line px-6 py-16 sm:py-20 md:py-24">
-      <div className="mx-auto max-w-6xl grid gap-10 md:grid-cols-[1fr_2fr]">
+    <section
+      id="about"
+      className="relative scroll-mt-24 overflow-hidden border-b border-line px-6 py-16 sm:py-20 md:py-24"
+    >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute -right-32 top-0 h-[26rem] w-[26rem] animate-blob rounded-full blur-[130px] [animation-delay:2s]"
+          style={{ backgroundColor: 'rgb(var(--accent-rgb) / var(--blob-o2))' }}
+        />
+        <div className="bg-grid bg-grid-fade absolute inset-0 opacity-60" />
+      </div>
+      <div className="relative mx-auto max-w-6xl grid gap-10 md:grid-cols-[1fr_2fr]">
         <div>
           <h2 className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">
             <RevealText text="About" inView />

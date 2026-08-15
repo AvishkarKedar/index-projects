@@ -14,8 +14,14 @@ export default function Hero() {
       className="relative flex min-h-screen min-h-[100svh] min-h-[100dvh] flex-col justify-center overflow-hidden border-b border-line px-6"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/4 h-[32rem] w-[32rem] animate-blob rounded-full bg-fg/15 blur-[120px]" />
-        <div className="absolute right-1/4 top-1/3 h-[26rem] w-[26rem] animate-blob rounded-full bg-fg/[0.08] blur-[120px] [animation-delay:4s]" />
+        <div
+          className="absolute -top-40 left-1/4 h-[32rem] w-[32rem] animate-blob rounded-full blur-[120px]"
+          style={{ backgroundColor: 'rgb(var(--accent-rgb) / var(--blob-o1))' }}
+        />
+        <div
+          className="absolute right-1/4 top-1/3 h-[26rem] w-[26rem] animate-blob rounded-full blur-[120px] [animation-delay:4s]"
+          style={{ backgroundColor: 'rgb(var(--accent-rgb) / var(--blob-o2))' }}
+        />
         <div className="bg-grid bg-grid-fade absolute inset-0" />
       </div>
 
