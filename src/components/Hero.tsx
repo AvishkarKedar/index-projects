@@ -3,6 +3,9 @@ import RevealText from './RevealText'
 import Magnetic from './Magnetic'
 import TypingText from './TypingText'
 import AnimatedNumber from './AnimatedNumber'
+import { projects } from '../data/projects'
+
+const liveCount = projects.filter((p) => p.status === 'live').length
 
 export default function Hero() {
   return (
@@ -83,7 +86,7 @@ export default function Hero() {
         >
           <div>
             <p className="font-mono text-2xl text-fg sm:text-3xl">
-              <AnimatedNumber value={5} />
+              <AnimatedNumber value={liveCount} />
             </p>
             <p className="mt-1 text-xs uppercase tracking-widest text-fg/40">projects live</p>
           </div>

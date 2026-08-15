@@ -3,7 +3,7 @@ import { useInView, useMotionValue, useSpring } from 'framer-motion'
 
 export default function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-40px' })
+  const isInView = useInView(ref, { once: true, amount: 0 })
   const motionValue = useMotionValue(0)
   const spring = useSpring(motionValue, { stiffness: 60, damping: 20 })
 
