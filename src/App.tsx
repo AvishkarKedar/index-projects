@@ -12,8 +12,9 @@ import NotFound from './pages/NotFound'
 
 const PageIntro = lazy(() => import('./components/PageIntro'))
 const CursorSpotlight = lazy(() => import('./components/CursorSpotlight'))
+const Starfield = lazy(() => import('./components/Starfield'))
 
-const ORIGINAL_TITLE = 'Avishkar Kedar — Projects'
+const ORIGINAL_TITLE = 'Avishkar Kedar — Project Index'
 
 export default function App() {
   useEffect(() => {
@@ -27,7 +28,14 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <BrowserRouter>
-        <div className="min-h-screen bg-bg text-fg">
+        <div className="grain min-h-screen bg-bg text-fg">
+          {/* Interactive 3D starfield — fixed behind everything */}
+          <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+            <Suspense fallback={null}>
+              <Starfield />
+            </Suspense>
+          </div>
+
           <Suspense fallback={null}>
             <PageIntro />
           </Suspense>
@@ -40,14 +48,16 @@ export default function App() {
           <CustomCursor />
           <KonamiEasterEgg />
           <Nav />
-          <main id="main-content">
+          <main id="main-content" className="relative z-10">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/projects/:slug" element={<CaseStudy />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
-          <Footer />
+          <div className="relative z-10">
+            <Footer />
+          </div>
           <FloatingContactButton />
         </div>
       </BrowserRouter>

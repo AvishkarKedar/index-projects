@@ -7,7 +7,7 @@ import ProjectVisual from '../components/ProjectVisual'
 import TransitionLink from '../components/TransitionLink'
 import NotFound from './NotFound'
 
-const ORIGINAL_TITLE = 'Avishkar Kedar — Projects'
+const ORIGINAL_TITLE = 'Avishkar Kedar — Project Index'
 
 export default function CaseStudy() {
   const { slug } = useParams()
@@ -55,7 +55,7 @@ export default function CaseStudy() {
             href={project.live}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full bg-fg px-6 py-2.5 font-semibold text-bg transition-transform hover:scale-105"
+            className="bg-fg px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-widest text-bg transition-colors hover:bg-fg/85"
           >
             Visit ↗
           </a>
@@ -64,7 +64,7 @@ export default function CaseStudy() {
           href={project.repo}
           target="_blank"
           rel="noreferrer"
-          className="rounded-full border border-line px-6 py-2.5 text-fg/70 transition-colors hover:border-fg hover:text-fg"
+          className="border border-line px-6 py-2.5 font-mono text-xs uppercase tracking-widest text-fg/70 transition-colors hover:border-fg hover:text-fg"
         >
           Source ↗
         </a>

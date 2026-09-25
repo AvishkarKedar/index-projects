@@ -7,30 +7,14 @@
   --fg-rgb: 255 255 255;
   --line-color: rgb(255 255 255 / 0.08);
   --line-color-strong: rgb(255 255 255 / 0.2);
-  --accent-rgb: 129 140 248;
-  --blob-o1: 0.16;
-  --blob-o2: 0.11;
-  --grid-o: 0.06;
+  --accent-rgb: 255 255 255;
+  --blob-o1: 0.1;
+  --blob-o2: 0.07;
+  --grid-o: 0.05;
   --visual-container-o: 0.03;
   --visual-pattern-o: 0.09;
   --visual-blur-o: 0.22;
   --visual-number-o: 0.09;
-  --spotlight-o: 0.06;
-}
-
-.light {
-  --bg-rgb: 255 255 255;
-  --fg-rgb: 12 12 12;
-  --line-color: rgb(0 0 0 / 0.1);
-  --line-color-strong: rgb(0 0 0 / 0.22);
-  --accent-rgb: 67 56 202;
-  --blob-o1: 0.14;
-  --blob-o2: 0.1;
-  --grid-o: 0.09;
-  --visual-container-o: 0.035;
-  --visual-pattern-o: 0.12;
-  --visual-blur-o: 0.16;
-  --visual-number-o: 0.07;
   --spotlight-o: 0.05;
 }
 
@@ -40,12 +24,7 @@
 
 html {
   scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-snap-type: y proximity;
-  }
+  color-scheme: dark;
 }
 
 html,
@@ -57,9 +36,83 @@ body,
 body {
   background: rgb(var(--bg-rgb));
   color: rgb(var(--fg-rgb));
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  font-feature-settings: 'ss01';
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ————————————————————————————————————————
+   FILM GRAIN — cinematic x.ai texture
+   ———————————————————————————————————————— */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.026;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: grain-shift 0.9s steps(4) infinite;
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1%); }
+  50% { transform: translate(1%, -2%); }
+  75% { transform: translate(-1%, 2%); }
+  100% { transform: translate(2%, -1%); }
+}
+
+/* ————————————————————————————————————————
+   TYPOGRAPHY HELPERS
+   ———————————————————————————————————————— */
+.text-fade-display {
+  background: linear-gradient(180deg, rgb(var(--fg-rgb)) 30%, rgb(var(--fg-rgb) / 0.45) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ————————————————————————————————————————
+   SCROLL CUE
+   ———————————————————————————————————————— */
+.animate-scroll-line {
+  animation: scroll-line 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes scroll-line {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ————————————————————————————————————————
+   DRAG-TO-ROTATE SKY
+   ———————————————————————————————————————— */
+body.is-dragging {
+  user-select: none;
+  -webkit-user-select: none;
+}
+body.is-dragging .custom-cursor-root {
+  opacity: 0 !important;
+}
+
+/* ————————————————————————————————————————
+   MARQUEE (extends tailwind animate-marquee)
+   ———————————————————————————————————————— */
+.marquee-mask:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* ————————————————————————————————————————
+   MODAL SCROLLBAR
+   ———————————————————————————————————————— */
+.modal-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: rgb(var(--fg-rgb) / 0.14);
 }
 
 .bg-grid {
@@ -203,13 +256,13 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
   background: rgb(var(--bg-rgb));
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--fg-rgb) / 0.2);
+  background: rgb(var(--fg-rgb) / 0.18);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(var(--fg-rgb) / 0.35);
@@ -236,7 +289,7 @@ input:focus-visible,
 textarea:focus-visible {
   outline: 2px solid rgb(var(--fg-rgb));
   outline-offset: 3px;
-  border-radius: 6px;
+  border-radius: 2px;
 }
 
 .skip-link {
@@ -247,8 +300,7 @@ textarea:focus-visible {
   background: rgb(var(--fg-rgb));
   color: rgb(var(--bg-rgb));
   padding: 10px 18px;
-  border-radius: 9999px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -286,7 +338,8 @@ textarea:focus-visible {
   .fixed,
   .bg-grid,
   .animate-blob,
-  .skip-link {
+  .skip-link,
+  .grain::after {
     display: none !important;
   }
   html,
@@ -305,18 +358,15 @@ textarea:focus-visible {
     border-color: #ccc !important;
     backdrop-filter: none !important;
   }
-  a[href^='http']::after {
-    content: ' (' attr(href) ')';
-    font-size: 0.75em;
-    color: #555;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-blob,
   .animate-pulse-dot,
   .animate-marquee,
-  .pulse-ring {
+  .pulse-ring,
+  .animate-scroll-line,
+  .grain::after {
     animation: none !important;
   }
   .shine-sweep::after {

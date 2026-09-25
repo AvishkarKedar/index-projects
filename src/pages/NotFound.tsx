@@ -8,7 +8,7 @@ export default function NotFound() {
       <TransitionLink
         to="/"
         data-cursor="Go"
-        className="mt-8 rounded-full bg-fg px-7 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-bg transition-transform hover:scale-105"
+        className="mt-8 bg-fg px-7 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-bg transition-colors hover:bg-fg/85"
       >
         Back to avishkark.in
       </TransitionLink>

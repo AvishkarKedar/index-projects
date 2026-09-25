@@ -167,3 +167,26 @@ export const projects: Project[] = [
     },
   },
 ]
+
+export const PROFILE = {
+  name: 'Avishkar Kedar',
+  fullName: 'Avishkar Vishnu Kedar',
+  role: 'Student & Builder',
+  email: 'avishkarkedar@gmail.com',
+  site: 'https://avishkark.in',
+  github: 'https://github.com/AvishkarKedar',
+  instagram: 'https://instagram.com/avishkar_kedar',
+  instagramHandle: '@avishkar_kedar',
+  x: 'https://x.com/AvishkarKedar',
+  xHandle: '@AvishkarKedar',
+  headline:
+    'I design and ship privacy-first software — encrypted collaboration, on-device machine learning, and offline-capable tools. Nothing I build phones home.',
+  availability: 'Usually replies within 24–48 hours',
+  location: 'Based on the open web',
+} as const
+
+export const STATUS_LABEL: Record<ProjectStatus, string> = {
+  live: 'LIVE',
+  'in-progress': 'IN BUILD',
+  maintenance: 'MAINTENANCE',
+}
