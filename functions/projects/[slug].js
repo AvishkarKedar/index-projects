@@ -28,7 +28,16 @@ export async function onRequest(context) {
   const { params, request } = context
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug
   const meta = PROJECTS[slug]
-  const response = await context.next()
+
+  let response = await context.next()
+
+  // Pages Functions run before _redirects, so a direct visit to
+  // /projects/<slug> hits this Function with no matching static asset
+  // and context.next() returns the 404 page. Fall back to the SPA shell
+  // so OG-tagged links open the real app (client router takes it from there).
+  if (response.status === 404) {
+    response = await context.env.ASSETS.fetch(new URL('/index.html', request.url))
+  }
 
   if (!meta) return response
 
