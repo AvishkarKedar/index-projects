@@ -3,19 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --bg-rgb: 0 0 0;
-  --fg-rgb: 255 255 255;
-  --line-color: rgb(255 255 255 / 0.08);
-  --line-color-strong: rgb(255 255 255 / 0.2);
-  --accent-rgb: 255 255 255;
-  --blob-o1: 0.1;
-  --blob-o2: 0.07;
-  --grid-o: 0.05;
-  --visual-container-o: 0.03;
-  --visual-pattern-o: 0.09;
-  --visual-blur-o: 0.22;
-  --visual-number-o: 0.09;
-  --spotlight-o: 0.05;
+  --bg-rgb: 5 5 5;
+  --fg-rgb: 244 242 236;
+  --accent-rgb: 255 90 31;
+  --line-color: rgb(244 242 236 / 0.08);
+  --spotlight-o: 0.045;
 }
 
 * {
@@ -36,14 +28,14 @@ body,
 body {
   background: rgb(var(--bg-rgb));
   color: rgb(var(--fg-rgb));
-  font-family: 'Geist', 'Inter', system-ui, sans-serif;
-  font-feature-settings: 'ss01';
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 /* ————————————————————————————————————————
-   FILM GRAIN — cinematic x.ai texture
+   FILM GRAIN — keeps flat blacks from banding
    ———————————————————————————————————————— */
 .grain::after {
   content: '';
@@ -51,7 +43,7 @@ body {
   inset: -50%;
   z-index: 90;
   pointer-events: none;
-  opacity: 0.026;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px 256px;
   animation: grain-shift 0.9s steps(4) infinite;
@@ -65,30 +57,22 @@ body {
 }
 
 /* ————————————————————————————————————————
-   TYPOGRAPHY HELPERS
+   DISPLAY TYPE — serif headline with ink fade
    ———————————————————————————————————————— */
 .text-fade-display {
-  background: linear-gradient(180deg, rgb(var(--fg-rgb)) 30%, rgb(var(--fg-rgb) / 0.45) 100%);
+  background: linear-gradient(180deg, rgb(var(--fg-rgb)) 42%, rgb(var(--fg-rgb) / 0.5) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* ————————————————————————————————————————
-   SCROLL CUE
-   ———————————————————————————————————————— */
-.animate-scroll-line {
-  animation: scroll-line 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
-@keyframes scroll-line {
-  0% { transform: scaleY(0); transform-origin: top; }
-  45% { transform: scaleY(1); transform-origin: top; }
-  55% { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(var(--fg-rgb) / 0.34);
 }
 
 /* ————————————————————————————————————————
-   DRAG-TO-ROTATE SKY
+   DRAG-TO-ORBIT STATE
    ———————————————————————————————————————— */
 body.is-dragging {
   user-select: none;
@@ -99,7 +83,7 @@ body.is-dragging .custom-cursor-root {
 }
 
 /* ————————————————————————————————————————
-   MARQUEE (extends tailwind animate-marquee)
+   MARQUEE
    ———————————————————————————————————————— */
 .marquee-mask:hover .animate-marquee {
   animation-play-state: paused;
@@ -115,72 +99,6 @@ body.is-dragging .custom-cursor-root {
   background: rgb(var(--fg-rgb) / 0.14);
 }
 
-.bg-grid {
-  background-image:
-    linear-gradient(rgb(var(--fg-rgb) / var(--grid-o)) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--fg-rgb) / var(--grid-o)) 1px, transparent 1px);
-  background-size: 56px 56px;
-}
-
-.bg-grid-fade {
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-}
-
-.glass {
-  background: rgb(var(--fg-rgb) / 0.03);
-  border: 1px solid var(--line-color);
-  backdrop-filter: blur(16px);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.glow-border {
-  position: relative;
-}
-.glow-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgb(var(--fg-rgb) / 0.5), rgb(var(--fg-rgb) / 0.05));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-.glow-border:hover::before {
-  opacity: 1;
-}
-
-.rotating-border {
-  position: relative;
-}
-.rotating-border::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: conic-gradient(from 0deg, transparent, rgb(var(--fg-rgb) / 0.55), transparent 35%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-.rotating-border:hover::after {
-  opacity: 1;
-  animation: rotate-border 3.5s linear infinite;
-}
-@keyframes rotate-border {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .underline-grow {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;
@@ -194,64 +112,8 @@ body.is-dragging .custom-cursor-root {
   background-size: 100% 1px;
 }
 
-.typing-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 0.9em;
-  margin-left: 2px;
-  background: currentColor;
-  vertical-align: -0.1em;
-  animation: typing-blink 1s steps(1) infinite;
-}
-@keyframes typing-blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-.shine-sweep {
-  position: relative;
-}
-.shine-sweep::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 55%;
-  height: 100%;
-  background: linear-gradient(100deg, transparent, rgb(var(--fg-rgb) / 0.22), transparent);
-  transform: skewX(-20deg);
-  animation: shine-sweep 6s ease-in-out infinite;
-  animation-delay: 2s;
-  pointer-events: none;
-}
-@keyframes shine-sweep {
-  0% {
-    left: -150%;
-  }
-  35% {
-    left: 150%;
-  }
-  100% {
-    left: 150%;
-  }
-}
-
-.pulse-ring {
-  position: relative;
-  animation: pulse-ring 2s ease-out infinite;
-}
-@keyframes pulse-ring {
-  0% {
-    box-shadow: 0 0 0 0 rgb(var(--fg-rgb) / 0.35);
-  }
-  100% {
-    box-shadow: 0 0 0 20px rgb(var(--fg-rgb) / 0);
-  }
-}
-
 ::selection {
-  background: rgb(var(--fg-rgb));
+  background: rgb(var(--accent-rgb));
   color: rgb(var(--bg-rgb));
 }
 
@@ -265,29 +127,14 @@ body.is-dragging .custom-cursor-root {
   background: rgb(var(--fg-rgb) / 0.18);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--fg-rgb) / 0.35);
-}
-
-@keyframes pulse-dot {
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 0 0 rgb(var(--fg-rgb) / 0.35);
-  }
-  50% {
-    opacity: 0.6;
-    box-shadow: 0 0 0 6px rgb(var(--fg-rgb) / 0);
-  }
-}
-.animate-pulse-dot {
-  animation: pulse-dot 2s ease-in-out infinite;
+  background: rgb(var(--accent-rgb) / 0.6);
 }
 
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid rgb(var(--fg-rgb));
+  outline: 2px solid rgb(var(--accent-rgb));
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -300,7 +147,7 @@ textarea:focus-visible {
   background: rgb(var(--fg-rgb));
   color: rgb(var(--bg-rgb));
   padding: 10px 18px;
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono Variable', monospace;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -336,8 +183,6 @@ textarea:focus-visible {
 
 @media print {
   .fixed,
-  .bg-grid,
-  .animate-blob,
   .skip-link,
   .grain::after {
     display: none !important;
@@ -351,34 +196,14 @@ textarea:focus-visible {
     color: #000 !important;
     text-decoration: underline;
   }
-  .glass,
-  .glow-border,
-  .rotating-border {
-    background: none !important;
-    border-color: #ccc !important;
-    backdrop-filter: none !important;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-blob,
-  .animate-pulse-dot,
   .animate-marquee,
-  .pulse-ring,
   .animate-scroll-line,
+  .animate-pulse-soft,
   .grain::after {
     animation: none !important;
-  }
-  .shine-sweep::after {
-    animation: none !important;
-    display: none;
-  }
-  .rotating-border::after {
-    animation: none !important;
-  }
-  .typing-cursor {
-    animation: none !important;
-    opacity: 1;
   }
   html {
     scroll-behavior: auto !important;

@@ -1,7 +1,5 @@
-import { motion } from 'framer-motion'
 import { PROFILE } from '../data/projects'
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
+import { SectionMark, FadeUp } from './Reveal'
 
 const principles = [
   {
@@ -45,30 +43,17 @@ export default function About() {
   return (
     <section id="about" className="relative scroll-mt-20 border-t border-line">
       <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 sm:py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8, ease: EASE }}
-        >
-          <p className="mb-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-fg/40">
-            <span className="text-fg/70">02</span>
-            <span aria-hidden className="h-px w-8 bg-fg/25" />
-            About
-          </p>
-          <h2 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-fg sm:text-6xl">
-            Built in the dark, <span className="text-fg/40">for the light of day.</span>
-          </h2>
-        </motion.div>
+        <div>
+          <SectionMark index="02" label="About" />
+          <FadeUp delay={0.08}>
+            <h2 className="mt-5 max-w-4xl font-serif text-4xl leading-[1.05] tracking-serifdisplay text-fg sm:text-6xl">
+              Built in the dark, <em className="italic text-fg/45">for the light of day.</em>
+            </h2>
+          </FadeUp>
+        </div>
 
         <div className="mt-14 grid gap-14 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-            className="space-y-6 text-[15px] leading-relaxed text-fg/60 sm:text-base"
-          >
+          <FadeUp delay={0.1} className="space-y-6 text-[15px] leading-relaxed text-fg/60 sm:text-base">
             <p>
               I&apos;m {PROFILE.fullName} — a student and independent builder who ships real software
               end to end: the model, the protocol, the interface, and the CI that verifies it. Every
@@ -81,63 +66,53 @@ export default function About() {
               works, no data leaving the browser unless it&apos;s encrypted first. Some of this ships to
               live domains today; the rest is one deploy away.
             </p>
-            <p className="border-l border-line pl-5 text-fg/80">
+            <p className="border-l-2 border-accent/70 pl-5 font-serif text-xl italic leading-snug tracking-serifdisplay text-fg/90">
               If it can&apos;t run offline, it isn&apos;t finished.
             </p>
-          </motion.div>
+          </FadeUp>
 
           <div className="grid gap-px bg-line sm:grid-cols-2">
             {principles.map((pr, i) => (
-              <motion.div
-                key={pr.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.6, ease: EASE, delay: i * 0.07 }}
-                className="group bg-bg p-6 transition-colors duration-300 hover:bg-white/[0.03] sm:p-8"
-              >
-                <p className="mb-3 font-mono text-[10px] text-fg/30">P{i + 1}</p>
-                <h3 className="mb-2.5 text-lg font-semibold tracking-tight text-fg">{pr.title}</h3>
-                <p className="text-sm leading-relaxed text-fg/50">{pr.body}</p>
-              </motion.div>
+              <FadeUp key={pr.title} delay={i * 0.07} className="h-full">
+                <div className="group flex h-full flex-col bg-bg p-6 transition-colors duration-300 hover:bg-white/[0.03] sm:p-8">
+                  <p className="mb-4 font-serif text-3xl italic tracking-serifdisplay text-fg/25 transition-colors duration-300 group-hover:text-accent/80">
+                    0{i + 1}
+                  </p>
+                  <h3 className="mb-2.5 text-lg font-medium tracking-tight text-fg">{pr.title}</h3>
+                  <p className="text-sm leading-relaxed text-fg/50">{pr.body}</p>
+                </div>
+              </FadeUp>
             ))}
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.8, ease: EASE }}
-          className="mt-20"
-        >
-          <p className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-fg/40">
+        <FadeUp className="mt-20">
+          <p className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.32em] text-fg/40">
             <span aria-hidden className="h-px w-8 bg-fg/25" />
             Tooling — what these things are made of
           </p>
           <div className="grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
-            {stacks.map((s, i) => (
-              <motion.div
+            {stacks.map((s) => (
+              <div
                 key={s.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.6, ease: EASE, delay: i * 0.07 }}
-                className="bg-bg p-6 transition-colors duration-300 hover:bg-white/[0.03] sm:p-7"
+                className="group bg-bg p-6 transition-colors duration-300 hover:bg-white/[0.03] sm:p-7"
               >
-                <h4 className="mb-4 font-mono text-[11px] uppercase tracking-[0.25em] text-fg">{s.label}</h4>
+                <h4 className="mb-4 font-mono text-[11px] uppercase tracking-[0.25em] text-fg/90">{s.label}</h4>
                 <ul className="space-y-2">
                   {s.items.map((item) => (
                     <li key={item} className="flex items-center gap-2.5 text-[13px] text-fg/55">
-                      <span aria-hidden className="h-px w-3 bg-fg/30" />
+                      <span
+                        aria-hidden
+                        className="h-px w-3 bg-fg/30 transition-colors duration-300 group-hover:bg-accent/70"
+                      />
                       {item}
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </FadeUp>
       </div>
     </section>
   )

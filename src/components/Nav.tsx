@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import { useLocation } from 'react-router-dom'
-import Magnetic from './Magnetic'
-import ScrambleText from './ScrambleText'
-import TransitionLink from './TransitionLink'
 import { PROFILE } from '../data/projects'
+import { EASE } from '../lib/motion'
+import Magnetic from './Magnetic'
+import TransitionLink from './TransitionLink'
 
 const links = [
   { label: 'Work', href: '#projects' },
@@ -17,7 +17,9 @@ export default function Nav() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30, restDelta: 0.001 })
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [active, setActive] = useState('')
+  const lastY = useRef(0)
   const location = useLocation()
   const isHome = location.pathname === '/'
 
@@ -30,7 +32,14 @@ export default function Nav() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 24)
+      const y = window.scrollY
+      setScrolled(y > 24)
+      // hide on scroll down past the hero, reveal on scroll up
+      const delta = y - lastY.current
+      if (y > 140 && delta > 2 && !open) setHidden(true)
+      else if (delta < -2 || y <= 140) setHidden(false)
+      lastY.current = y
+
       let current = ''
       for (const l of links) {
         const el = document.getElementById(l.href.slice(1))
@@ -41,81 +50,69 @@ export default function Nav() {
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [open])
 
   function handleLinkClick() {
     setOpen(false)
   }
 
-  const navLink = (l: (typeof links)[number]) =>
-    isHome ? (
-      <a
-        key={l.href}
-        href={l.href}
-        onClick={handleLinkClick}
-        data-cursor="Go"
-        className={`flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] transition-colors duration-300 ${
-          active === l.href ? 'text-fg' : 'text-fg/45 hover:text-fg'
-        }`}
-      >
-        <span
-          className={`inline-block h-1 w-1 rounded-full transition-colors duration-300 ${
-            active === l.href ? 'bg-fg' : 'bg-fg/25'
-          }`}
-        />
-        <ScrambleText text={l.label} />
-      </a>
-    ) : (
-      <TransitionLink
-        key={l.href}
-        to={`/${l.href}`}
-        onClick={handleLinkClick}
-        data-cursor="Go"
-        className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-fg/45 transition-colors duration-300 hover:text-fg"
-      >
-        <span className="inline-block h-1 w-1 rounded-full bg-fg/25" />
-        <ScrambleText text={l.label} />
-      </TransitionLink>
-    )
+  const wordmark = (
+    <span className="flex items-center gap-2.5">
+      <span className="h-[7px] w-[7px] bg-accent" aria-hidden />
+      <span className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-fg">
+        AVISHKAR<span className="text-fg/40">—KEDAR</span>
+      </span>
+    </span>
+  )
 
   return (
     <>
       <motion.header
-        initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: hidden ? -110 : 0, opacity: 1 }}
+        transition={{ duration: 0.55, ease: EASE }}
         className={`fixed left-0 right-0 top-0 z-50 print:hidden transition-colors duration-500 ${
-          scrolled || !isHome ? 'border-b border-line bg-bg/60 backdrop-blur-xl' : 'border-b border-transparent'
+          scrolled || !isHome ? 'border-b border-line bg-bg/70 backdrop-blur-xl' : 'border-b border-transparent'
         }`}
       >
-        <motion.div style={{ scaleX }} className="absolute bottom-0 left-0 right-0 h-px origin-left bg-fg/60" />
+        <motion.div style={{ scaleX }} className="absolute bottom-0 left-0 right-0 h-px origin-left bg-accent/70" />
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-4 sm:px-8">
           <Magnetic strength={0.2}>
             {isHome ? (
-              <a href="#top" data-cursor="Top" className="group flex items-center gap-2.5">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fg opacity-30" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-fg" />
-                </span>
-                <span className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-fg">
-                  AVISHKAR<span className="text-fg/40">.KEDAR</span>
-                </span>
+              <a href="#top" data-cursor="Top" className="group flex items-center">
+                {wordmark}
               </a>
             ) : (
-              <TransitionLink to="/#top" data-cursor="Top" className="group flex items-center gap-2.5">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fg opacity-30" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-fg" />
-                </span>
-                <span className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-fg">
-                  AVISHKAR<span className="text-fg/40">.KEDAR</span>
-                </span>
+              <TransitionLink to="/#top" data-cursor="Top" className="flex items-center">
+                {wordmark}
               </TransitionLink>
             )}
           </Magnetic>
 
           <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-            {links.map(navLink)}
+            {links.map((l) =>
+              isHome ? (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  data-cursor="Go"
+                  className={`underline-grow py-1 font-mono text-[10.5px] uppercase tracking-[0.24em] transition-colors duration-300 ${
+                    active === l.href ? 'text-fg' : 'text-fg/45 hover:text-fg'
+                  }`}
+                >
+                  {l.label}
+                </a>
+              ) : (
+                <TransitionLink
+                  key={l.href}
+                  to={`/${l.href}`}
+                  data-cursor="Go"
+                  className="underline-grow py-1 font-mono text-[10.5px] uppercase tracking-[0.24em] text-fg/45 transition-colors duration-300 hover:text-fg"
+                >
+                  {l.label}
+                </TransitionLink>
+              ),
+            )}
           </nav>
 
           <div className="flex items-center gap-3">
@@ -125,7 +122,7 @@ export default function Nav() {
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="Open"
-                className="hidden items-center gap-2 border border-line px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/70 transition-all duration-300 hover:border-fg hover:bg-fg hover:text-bg sm:flex"
+                className="hidden items-center gap-2 border border-fg/20 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/70 transition-colors duration-300 hover:border-fg hover:bg-fg hover:text-bg sm:flex"
               >
                 GitHub
                 <span aria-hidden>↗</span>
@@ -135,7 +132,7 @@ export default function Nav() {
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
-              className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 border border-line md:hidden"
+              className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 border border-fg/20 md:hidden"
             >
               <span className={`h-px w-4 bg-fg transition-transform duration-300 ${open ? 'translate-y-[3.5px] rotate-45' : ''}`} />
               <span className={`h-px w-4 bg-fg transition-transform duration-300 ${open ? '-translate-y-[3.5px] -rotate-45' : ''}`} />
@@ -148,10 +145,10 @@ export default function Nav() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.55, ease: EASE }}
             className="fixed inset-0 z-40 flex flex-col justify-between bg-bg/95 px-6 pb-10 pt-28 backdrop-blur-2xl md:hidden"
           >
             <nav aria-label="Mobile" className="flex flex-col">
@@ -160,25 +157,25 @@ export default function Nav() {
                   key={l.href}
                   initial={{ opacity: 0, x: -24 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.08 + i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: 0.1 + i * 0.07, duration: 0.5, ease: EASE }}
                   className="border-b border-line"
                 >
                   {isHome ? (
                     <a
                       href={l.href}
                       onClick={handleLinkClick}
-                      className="flex items-baseline gap-4 py-6 text-4xl font-semibold tracking-tight text-fg"
+                      className="flex items-baseline gap-4 py-6 font-serif text-4xl tracking-serifdisplay text-fg"
                     >
-                      <span className="font-mono text-[11px] text-fg/30">0{i + 1}</span>
+                      <span className="font-mono text-[11px] tracking-normal text-accent">0{i + 1}</span>
                       {l.label}
                     </a>
                   ) : (
                     <TransitionLink
                       to={`/${l.href}`}
                       onClick={handleLinkClick}
-                      className="flex items-baseline gap-4 py-6 text-4xl font-semibold tracking-tight text-fg"
+                      className="flex items-baseline gap-4 py-6 font-serif text-4xl tracking-serifdisplay text-fg"
                     >
-                      <span className="font-mono text-[11px] text-fg/30">0{i + 1}</span>
+                      <span className="font-mono text-[11px] tracking-normal text-accent">0{i + 1}</span>
                       {l.label}
                     </TransitionLink>
                   )}
@@ -196,7 +193,7 @@ export default function Nav() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={handleLinkClick}
-                className="flex items-center justify-between border border-line px-5 py-3.5 font-mono text-[11px] uppercase tracking-[0.2em] text-fg/70"
+                className="flex items-center justify-between border border-fg/20 px-5 py-3.5 font-mono text-[11px] uppercase tracking-[0.2em] text-fg/70"
               >
                 GitHub <span aria-hidden>↗</span>
               </a>

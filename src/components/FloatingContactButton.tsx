@@ -23,13 +23,10 @@ export default function FloatingContactButton() {
           whileTap={{ scale: 0.95 }}
           aria-label="Contact me"
           data-cursor="Contact"
-          className="flex items-center gap-2.5 bg-fg px-5 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-bg border border-fg/20 shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
+          className="flex items-center gap-2.5 border border-fg/15 bg-fg px-5 py-3 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-bg shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-bg/40" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-bg" />
-          </span>
-          Contact Me
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+          Contact
         </motion.button>
       </Magnetic>
       <ContactForm open={open} onClose={() => setOpen(false)} />

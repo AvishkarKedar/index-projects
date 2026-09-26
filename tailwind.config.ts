@@ -7,28 +7,40 @@ export default {
       colors: {
         bg: 'rgb(var(--bg-rgb) / <alpha-value>)',
         fg: 'rgb(var(--fg-rgb) / <alpha-value>)',
+        accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
         line: 'var(--line-color)',
       },
       fontFamily: {
-        mono: ['"Geist Mono"', 'ui-monospace', 'monospace'],
-        sans: ['"Geist"', '"Inter"', 'system-ui', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'Times New Roman', 'serif'],
+        sans: ['"Space Grotesk Variable"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono Variable"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       letterSpacing: {
         tightest: '-0.04em',
+        serifdisplay: '-0.015em',
+      },
+      transitionTimingFunction: {
+        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
       keyframes: {
-        blob: {
-          '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
-          '33%': { transform: 'translate(30px, -40px) scale(1.1)' },
-          '66%': { transform: 'translate(-20px, 20px) scale(0.95)' },
-        },
         marquee: {
           to: { transform: 'translateX(-50%)' },
         },
+        'scroll-line': {
+          '0%': { transform: 'scaleY(0)', transformOrigin: 'top' },
+          '45%': { transform: 'scaleY(1)', transformOrigin: 'top' },
+          '55%': { transform: 'scaleY(1)', transformOrigin: 'bottom' },
+          '100%': { transform: 'scaleY(0)', transformOrigin: 'bottom' },
+        },
+        'pulse-soft': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.35' },
+        },
       },
       animation: {
-        blob: 'blob 14s ease-in-out infinite',
-        marquee: 'marquee 32s linear infinite',
+        marquee: 'marquee 42s linear infinite',
+        'scroll-line': 'scroll-line 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite',
+        'pulse-soft': 'pulse-soft 2.4s ease-in-out infinite',
       },
     },
   },

@@ -1,28 +1,27 @@
 import { projects } from '../data/projects'
 
 export default function Ticker() {
-  const items = projects.flatMap((p) => [
-    p.name.toUpperCase(),
-    p.tagline.toUpperCase(),
-  ])
+  const items = projects.flatMap((p) => [p.name.toUpperCase(), p.tagline])
   const row = [...items, ...items] // duplicated for seamless -50% loop
 
   return (
     <div
-      className="marquee-mask relative overflow-hidden border-y border-white/[0.07] bg-black/40 py-4 backdrop-blur-[2px]"
+      className="marquee-mask relative overflow-hidden border-y border-line bg-black/40 py-4 backdrop-blur-[2px]"
       aria-hidden="true"
     >
       <div className="animate-marquee flex w-max items-center whitespace-nowrap">
         {row.map((text, i) => (
-          <span key={i} className="flex items-center">
+          <span key={i} className="flex items-baseline">
             <span
-              className={`px-6 font-mono text-[11px] uppercase tracking-[0.3em] ${
-                i % 2 === 0 ? 'text-white/75' : 'text-white/30'
-              }`}
+              className={
+                i % 2 === 0
+                  ? 'px-7 font-mono text-[11px] uppercase tracking-[0.3em] text-fg/70'
+                  : 'px-7 font-serif text-xl italic tracking-serifdisplay text-outline'
+              }
             >
               {text}
             </span>
-            <span className="h-1 w-1 rounded-full bg-white/25" />
+            <span aria-hidden className="h-1.5 w-1.5 rotate-45 bg-accent/60" />
           </span>
         ))}
       </div>
