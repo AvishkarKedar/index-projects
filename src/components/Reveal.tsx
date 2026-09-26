@@ -1,38 +1,12 @@
 import { motion } from 'framer-motion'
 import { EASE } from '../lib/motion'
 
-/** Line clipped inside an overflow mask, sliding up into place. */
-export function MaskLine({
-  children,
-  delay = 0,
-  duration = 1.05,
-  className = '',
-}: {
-  children: React.ReactNode
-  delay?: number
-  duration?: number
-  className?: string
-}) {
-  return (
-    <span className={`block overflow-hidden pb-[0.1em] ${className}`}>
-      <motion.span
-        className="block will-change-transform"
-        initial={{ y: '112%' }}
-        animate={{ y: 0 }}
-        transition={{ duration, ease: EASE, delay }}
-      >
-        {children}
-      </motion.span>
-    </span>
-  )
-}
-
-/** Generic fade-and-rise for in-view content. */
+/** Generic fade-and-rise for in-view content — the site's only reveal. */
 export function FadeUp({
   children,
   delay = 0,
-  duration = 0.85,
-  y = 22,
+  duration = 0.6,
+  y = 18,
   className = '',
 }: {
   children: React.ReactNode
@@ -45,24 +19,24 @@ export function FadeUp({
     <motion.div
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-70px' }}
+      viewport={{ once: true, margin: '-60px' }}
       transition={{ duration, ease: EASE, delay }}
-      className={className}
+      className={`will-fade ${className}`}
     >
       {children}
     </motion.div>
   )
 }
 
-/** Section eyebrow: index number, hairline, label. */
-export function SectionMark({ index, label }: { index: string; label: string }) {
+/** Numbered section heading: "01. About ———————" */
+export function SectionHeading({ index, title }: { index: string; title: string }) {
   return (
     <FadeUp>
-      <p className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.32em] text-fg/45">
-        <span className="text-accent">{index}</span>
-        <span aria-hidden className="h-px w-10 bg-fg/25" />
-        {label}
-      </p>
+      <h2 className="flex items-center gap-4 whitespace-nowrap text-2xl font-bold tracking-tight text-fg sm:text-3xl">
+        <span className="font-mono text-base font-normal text-accent sm:text-lg">{index}.</span>
+        {title}
+        <span aria-hidden className="mt-1 hidden h-px w-full max-w-[280px] bg-fg/15 sm:block" />
+      </h2>
     </FadeUp>
   )
 }

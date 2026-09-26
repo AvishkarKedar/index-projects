@@ -1,27 +1,55 @@
-import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
-import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { PROFILE } from '../data/projects'
 import { EASE } from '../lib/motion'
-import Magnetic from './Magnetic'
-import TransitionLink from './TransitionLink'
+import { GitHubIcon, InstagramIcon, MailIcon, XIcon } from './Icons'
 
 const links = [
-  { label: 'Work', href: '#projects' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+  { n: '01', label: 'About', href: '#about' },
+  { n: '02', label: 'Work', href: '#work' },
+  { n: '03', label: 'Contact', href: '#contact' },
 ]
 
+const socials = [
+  { label: 'GitHub', href: PROFILE.github, Icon: GitHubIcon },
+  { label: 'Instagram', href: PROFILE.instagram, Icon: InstagramIcon },
+  { label: 'X', href: PROFILE.x, Icon: XIcon },
+  { label: 'Email', href: `mailto:${PROFILE.email}`, Icon: MailIcon },
+]
+
+function Logo({ onClick }: { onClick?: () => void }) {
+  const inner = (
+    <span className="flex items-center gap-2">
+      <span className="flex h-8 w-8 items-center justify-center rounded border border-accent/70 font-mono text-sm font-bold text-accent">
+        A
+      </span>
+      <span className="font-mono text-[13px] font-medium tracking-wide text-fg max-md:hidden">
+        avishkark<span className="text-accent">.in</span>
+      </span>
+    </span>
+  )
+  return onClick ? (
+    <button onClick={onClick} aria-label="Back to top" className="shrink-0">
+      {inner}
+    </button>
+  ) : (
+    <a href="#top" aria-label="Back to top" className="shrink-0">
+      {inner}
+    </a>
+  )
+}
+
 export default function Nav() {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30, restDelta: 0.001 })
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [hidden, setHidden] = useState(false)
-  const [active, setActive] = useState('')
-  const lastY = useRef(0)
+  const [mounted, setMounted] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
   const isHome = location.pathname === '/'
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -30,180 +58,130 @@ export default function Nav() {
     }
   }, [open])
 
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY
-      setScrolled(y > 24)
-      // hide on scroll down past the hero, reveal on scroll up
-      const delta = y - lastY.current
-      if (y > 140 && delta > 2 && !open) setHidden(true)
-      else if (delta < -2 || y <= 140) setHidden(false)
-      lastY.current = y
+  useEffect(() => setOpen(false), [location.pathname])
 
-      let current = ''
-      for (const l of links) {
-        const el = document.getElementById(l.href.slice(1))
-        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) current = l.href
-      }
-      setActive(current)
-    }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [open])
-
-  function handleLinkClick() {
+  function goSection(e: React.MouseEvent, href: string) {
+    e.preventDefault()
     setOpen(false)
+    if (isHome) {
+      const el = document.getElementById(href.slice(1))
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else {
+      navigate(`/${href}`)
+    }
   }
 
-  const wordmark = (
-    <span className="flex items-center gap-2.5">
-      <span className="h-[7px] w-[7px] bg-accent" aria-hidden />
-      <span className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-fg">
-        AVISHKAR<span className="text-fg/40">—KEDAR</span>
-      </span>
-    </span>
+  const NavLinkList = ({ vertical = false }: { vertical?: boolean }) => (
+    <ul className={vertical ? 'flex flex-col items-center gap-1' : 'flex items-center gap-7'}>
+      {links.map((l) => (
+        <li key={l.n} className={vertical ? 'py-2' : ''}>
+          <a
+            href={l.href}
+            onClick={(e) => goSection(e, l.href)}
+            className="group font-mono text-[13px] text-muted transition-colors hover:text-accent"
+          >
+            <span className="text-accent">{l.n}.</span> {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+
+  const SocialRail = ({ vertical = false }: { vertical?: boolean }) => (
+    <ul className={`flex items-center gap-5 ${vertical ? 'flex-col gap-6' : ''}`}>
+      {socials.map(({ label, href, Icon }) => (
+        <li key={label}>
+          <a
+            href={href}
+            target={href.startsWith('mailto') ? undefined : '_blank'}
+            rel="noreferrer"
+            aria-label={label}
+            className="block text-muted transition-all duration-300 hover:-translate-y-1 hover:text-accent"
+          >
+            <Icon className="h-5 w-5" />
+          </a>
+        </li>
+      ))}
+    </ul>
   )
 
   return (
     <>
-      <motion.header
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: hidden ? -110 : 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: EASE }}
-        className={`fixed left-0 right-0 top-0 z-50 print:hidden transition-colors duration-500 ${
-          scrolled || !isHome ? 'border-b border-line bg-bg/70 backdrop-blur-xl' : 'border-b border-transparent'
-        }`}
-      >
-        <motion.div style={{ scaleX }} className="absolute bottom-0 left-0 right-0 h-px origin-left bg-accent/70" />
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-4 sm:px-8">
-          <Magnetic strength={0.2}>
-            {isHome ? (
-              <a href="#top" data-cursor="Top" className="group flex items-center">
-                {wordmark}
-              </a>
-            ) : (
-              <TransitionLink to="/#top" data-cursor="Top" className="flex items-center">
-                {wordmark}
-              </TransitionLink>
-            )}
-          </Magnetic>
+      {/* ——— mobile / tablet top bar ——— */}
+      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between bg-bg/85 px-6 py-4 backdrop-blur-md lg:hidden">
+        <Logo />
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          className="relative z-50 flex h-10 w-10 items-center justify-center"
+        >
+          <span className={`absolute h-[2px] w-6 bg-accent transition-transform duration-300 ${open ? 'rotate-45' : '-translate-y-[6px]'}`} />
+          <span className={`absolute h-[2px] w-6 bg-accent transition-transform duration-300 ${open ? '-rotate-45' : 'translate-y-[6px]'}`} />
+        </button>
+      </header>
 
-          <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-            {links.map((l) =>
-              isHome ? (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  data-cursor="Go"
-                  className={`underline-grow py-1 font-mono text-[10.5px] uppercase tracking-[0.24em] transition-colors duration-300 ${
-                    active === l.href ? 'text-fg' : 'text-fg/45 hover:text-fg'
-                  }`}
-                >
-                  {l.label}
-                </a>
-              ) : (
-                <TransitionLink
-                  key={l.href}
-                  to={`/${l.href}`}
-                  data-cursor="Go"
-                  className="underline-grow py-1 font-mono text-[10.5px] uppercase tracking-[0.24em] text-fg/45 transition-colors duration-300 hover:text-fg"
-                >
-                  {l.label}
-                </TransitionLink>
-              ),
-            )}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Magnetic strength={0.25}>
-              <a
-                href={PROFILE.github}
-                target="_blank"
-                rel="noreferrer"
-                data-cursor="Open"
-                className="hidden items-center gap-2 border border-fg/20 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/70 transition-colors duration-300 hover:border-fg hover:bg-fg hover:text-bg sm:flex"
-              >
-                GitHub
-                <span aria-hidden>↗</span>
-              </a>
-            </Magnetic>
-            <button
-              onClick={() => setOpen((v) => !v)}
-              aria-label={open ? 'Close menu' : 'Open menu'}
-              aria-expanded={open}
-              className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 border border-fg/20 md:hidden"
-            >
-              <span className={`h-px w-4 bg-fg transition-transform duration-300 ${open ? 'translate-y-[3.5px] rotate-45' : ''}`} />
-              <span className={`h-px w-4 bg-fg transition-transform duration-300 ${open ? '-translate-y-[3.5px] -rotate-45' : ''}`} />
-            </button>
-          </div>
-        </div>
-      </motion.header>
-
-      {/* Mobile overlay menu */}
+      {/* ——— mobile overlay ——— */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            animate={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
-            exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            transition={{ duration: 0.55, ease: EASE }}
-            className="fixed inset-0 z-40 flex flex-col justify-between bg-bg/95 px-6 pb-10 pt-28 backdrop-blur-2xl md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-card/98 backdrop-blur-lg lg:hidden"
           >
-            <nav aria-label="Mobile" className="flex flex-col">
-              {links.map((l, i) => (
-                <motion.div
-                  key={l.href}
-                  initial={{ opacity: 0, x: -24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + i * 0.07, duration: 0.5, ease: EASE }}
-                  className="border-b border-line"
-                >
-                  {isHome ? (
+            <nav aria-label="Mobile">
+              <ul className="flex flex-col items-center gap-6">
+                {links.map((l, i) => (
+                  <motion.li
+                    key={l.n}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: EASE }}
+                  >
                     <a
                       href={l.href}
-                      onClick={handleLinkClick}
-                      className="flex items-baseline gap-4 py-6 font-serif text-4xl tracking-serifdisplay text-fg"
+                      onClick={(e) => goSection(e, l.href)}
+                      className="font-mono text-lg text-muted transition-colors hover:text-accent"
                     >
-                      <span className="font-mono text-[11px] tracking-normal text-accent">0{i + 1}</span>
-                      {l.label}
+                      <span className="text-accent">{l.n}.</span> {l.label}
                     </a>
-                  ) : (
-                    <TransitionLink
-                      to={`/${l.href}`}
-                      onClick={handleLinkClick}
-                      className="flex items-baseline gap-4 py-6 font-serif text-4xl tracking-serifdisplay text-fg"
-                    >
-                      <span className="font-mono text-[11px] tracking-normal text-accent">0{i + 1}</span>
-                      {l.label}
-                    </TransitionLink>
-                  )}
-                </motion.div>
-              ))}
+                  </motion.li>
+                ))}
+              </ul>
             </nav>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.35, duration: 0.5 }}
-              className="flex flex-col gap-4"
+              transition={{ delay: 0.3, duration: 0.4 }}
             >
-              <a
-                href={PROFILE.github}
-                target="_blank"
-                rel="noreferrer"
-                onClick={handleLinkClick}
-                className="flex items-center justify-between border border-fg/20 px-5 py-3.5 font-mono text-[11px] uppercase tracking-[0.2em] text-fg/70"
-              >
-                GitHub <span aria-hidden>↗</span>
-              </a>
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg/30">
-                {PROFILE.name} — {PROFILE.location}
-              </p>
+              <SocialRail />
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ——— desktop fixed left sidebar ——— */}
+      <motion.header
+        initial={{ opacity: 0 }}
+        animate={mounted ? { opacity: 1 } : {}}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="fixed bottom-0 left-0 top-0 z-40 hidden w-[100px] flex-col items-center justify-between py-8 lg:flex"
+      >
+        <div>
+          <Logo />
+        </div>
+
+        <nav aria-label="Primary" className="my-auto py-8">
+          <NavLinkList vertical />
+        </nav>
+
+        <div className="flex flex-col items-center gap-8">
+          <SocialRail vertical />
+          <span aria-hidden className="block h-24 w-px bg-fg/20" />
+        </div>
+      </motion.header>
     </>
   )
 }

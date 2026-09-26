@@ -1,53 +1,51 @@
-import Magnetic from './Magnetic'
-import { PROFILE, projects } from '../data/projects'
+import { PROFILE } from '../data/projects'
+import { GitHubIcon, InstagramIcon, XIcon } from './Icons'
+import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="relative mt-auto border-t border-line print:hidden">
-      <div className="mx-auto max-w-[1440px] px-5 py-8 sm:px-8">
-        <div className="flex flex-wrap items-center justify-between gap-5">
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg/40">
-            © {new Date().getFullYear()} {PROFILE.name}
-          </p>
-
-          <div className="flex items-center gap-6">
-            {[
-              { label: 'Email', href: `mailto:${PROFILE.email}` },
-              { label: 'GitHub', href: PROFILE.github },
-              { label: 'X', href: PROFILE.x },
-              { label: 'Instagram', href: PROFILE.instagram },
-            ].map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                target={l.href.startsWith('mailto') ? undefined : '_blank'}
-                rel="noreferrer"
-                data-cursor="Open"
-                className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg/40 transition-colors hover:text-fg"
-              >
-                {l.label}
-              </a>
-            ))}
+    <footer className="px-6 pb-16 pt-4 sm:px-10">
+      <div className="mx-auto w-full max-w-wrap">
+        <div className="flex flex-col items-center gap-5">
+          <div className="flex items-center gap-2 font-mono text-xs text-muted">
+            <span>Designed &amp; built by</span>
+            <Link to="/" className="text-accent underline-offset-4 hover:underline">
+              {PROFILE.name}
+            </Link>
           </div>
 
-          <Magnetic strength={0.3}>
+          <div className="flex items-center gap-6 text-muted">
             <a
-              href="#top"
-              data-cursor="Top"
-              className="group flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-fg/50 transition-colors hover:text-fg"
+              href={PROFILE.github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+              className="transition-all duration-300 hover:-translate-y-1 hover:text-accent"
             >
-              Back to top
-              <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5">↑</span>
+              <GitHubIcon className="h-5 w-5" />
             </a>
-          </Magnetic>
-        </div>
+            <a
+              href={PROFILE.instagram}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="transition-all duration-300 hover:-translate-y-1 hover:text-accent"
+            >
+              <InstagramIcon className="h-5 w-5" />
+            </a>
+            <a
+              href={PROFILE.x}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="X"
+              className="transition-all duration-300 hover:-translate-y-1 hover:text-accent"
+            >
+              <XIcon className="h-5 w-5" />
+            </a>
+          </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
-          <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-fg/25">
-            No cookies · No analytics · No trackers
-          </p>
-          <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-fg/25">
-            {projects.length} entries · Built in the dark
+          <p className="font-mono text-[11px] text-muted/70">
+            © {new Date().getFullYear()} {PROFILE.fullName} · No cookies · No trackers
           </p>
         </div>
       </div>

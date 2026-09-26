@@ -27,6 +27,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'anonshare',
+    image: '/work/anonshare.jpg',
     name: 'anonshare',
     tagline: 'Encrypted real-time scratchpad',
     description:
@@ -57,6 +58,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'portfolio',
+    image: '/work/portfolio.jpg',
     name: 'Portfolio',
     tagline: 'Dark, cinematic landing page',
     description:
@@ -84,6 +86,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'cottoncure',
+    image: '/work/cottoncure.jpg',
     name: 'CottonCure',
     tagline: 'On-device ML disease detection',
     description:
@@ -111,6 +114,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'qrdata',
+    image: '/work/qrdata.jpg',
     name: 'QRData',
     tagline: 'File transfer over animated QR',
     description:
@@ -139,6 +143,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'avik-games',
+    image: '/work/avik-games.jpg',
     name: 'Avik Games',
     tagline: '15-world browser platformer',
     description:

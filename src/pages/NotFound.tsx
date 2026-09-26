@@ -1,20 +1,21 @@
-import TransitionLink from '../components/TransitionLink'
+import { Link } from 'react-router-dom'
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-[70vh] flex-col items-center justify-center px-6 pt-32 text-center">
-      <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-fg/35">Error — signal lost</p>
-      <h1 className="mt-3 font-serif text-[clamp(5rem,20vw,10rem)] leading-none tracking-serifdisplay text-fg">
-        4<span className="italic text-fg/40">0</span>4
+    <div className="flex min-h-[75vh] flex-col items-center justify-center px-6 pt-24 text-center">
+      <p className="font-mono text-sm text-accent">404 — page not found</p>
+      <h1 className="mt-4 text-5xl font-bold tracking-tight text-fg sm:text-7xl">
+        Nothing lives here.
       </h1>
-      <p className="mt-4 font-mono text-xs uppercase tracking-[0.25em] text-fg/50">This page doesn&apos;t exist.</p>
-      <TransitionLink
+      <p className="mt-4 max-w-md text-muted">
+        The page you&apos;re looking for was never shipped — or it moved. Head back to the index.
+      </p>
+      <Link
         to="/"
-        data-cursor="Go"
-        className="mt-8 bg-fg px-7 py-3 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-bg transition-colors hover:bg-accent"
+        className="mt-9 inline-flex items-center gap-2.5 rounded border border-accent px-6 py-3.5 font-mono text-sm text-accent transition-colors duration-300 hover:bg-accent/10"
       >
         Back to the index
-      </TransitionLink>
+      </Link>
     </div>
   )
 }

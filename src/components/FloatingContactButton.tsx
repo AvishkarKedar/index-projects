@@ -1,34 +1,28 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import ContactForm from './ContactForm'
-import Magnetic from './Magnetic'
+import { MailIcon } from './Icons'
 
 export default function FloatingContactButton() {
   const [open, setOpen] = useState(false)
 
   return (
     <>
-      <Magnetic
-        strength={0.3}
-        className={`fixed z-40 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-[calc(1.25rem+env(safe-area-inset-right))] transition-opacity duration-300 ${
+      <motion.button
+        onClick={() => setOpen(true)}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.96 }}
+        aria-label="Contact me"
+        className={`fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-[calc(1.25rem+env(safe-area-inset-right))] z-40 flex items-center gap-2.5 rounded border border-accent bg-card px-5 py-3 font-mono text-xs text-accent shadow-card transition-opacity duration-300 hover:bg-accent/10 ${
           open ? 'pointer-events-none opacity-0' : 'opacity-100'
         }`}
       >
-        <motion.button
-          onClick={() => setOpen(true)}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ scale: 1.06 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label="Contact me"
-          data-cursor="Contact"
-          className="flex items-center gap-2.5 border border-fg/15 bg-fg px-5 py-3 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-bg shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-          Contact
-        </motion.button>
-      </Magnetic>
+        <MailIcon className="h-4 w-4" />
+        Contact
+      </motion.button>
       <ContactForm open={open} onClose={() => setOpen(false)} />
     </>
   )
